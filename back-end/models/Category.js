@@ -1,18 +1,23 @@
-const { DataTypes } = require('sequelize')
-const sequelize = require('../config/db')
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // อ้างอิงไฟล์เชื่อมต่อ DB ของคุณ
 
-const Category = sequelize.define('notice_type', {
-  notice_type_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
+const Category = sequelize.define('Category', {
+  // ใช้ชื่อฟิลด์ให้ตรงกับที่คุณยิงใน Thunder Client
   notice_type_name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: true
+    }
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
-  timestamps: false,
-  freezeTableName: true
-})
-dule.exports = Category
+  tableName: 'categories', // กำหนดชื่อตารางใน Database
+  timestamps: true // จะสร้าง createdAt, updatedAt อัตโนมัติ
+});
+
+module.exports = Category;

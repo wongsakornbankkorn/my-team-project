@@ -1,55 +1,64 @@
-const Category = require('../models/Category')
+const Category = require('../models/Category');
 
-// ดูทั้งหมด
-const getAllCategories = async (req, res) => {
+// 1. ดึงข้อมูลหมวดหมู่ทั้งหมด
+exports.getCategories = async (req, res) => {
   try {
-    const categories = await Category.findAll({
-      attributes: ['notice_type_id', 'notice_type_name'],
-      raw: true
-    })
-    res.json(categories)
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+    const categories = await Category.findAll();
+    res.status(200).json({ success: true, data: categories });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการดึงข้อมูล', error: error.message });
   }
-}
+};
 
-// เพิ่มประเภท
-const createCategory = async (req, res) => {
+// 2. สร้างหมวดหมู่ใหม่
+exports.createCategory = async (req, res) => {
   try {
-    const { name, description } = req.body
-    const category = await Category.create({ name, description })
-    res.status(201).json(category)
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+    const category = await Category.create(req.body);
+    res.status(201).json({ success: true, data: category });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการสร้างหมวดหมู่', error: error.message });
   }
-}
+};
 
-// แก้ไข
-const updateCategory = async (req, res) => {
+// 3. ดึงข้อมูลหมวดหมู่ตาม ID
+exports.getCategoryById = async (req, res) => {
   try {
-    const { id } = req.params
-    const { name, description } = req.body
-    await Category.update({ name, description }, { where: { id } })
-    res.json({ message: 'updated' })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+    const category = await Category.findByPk(req.params.id);
+    if (!category) {
+      return res.status(404).json({ success: false, message: 'ไม่พบหมวดหมู่นี้' });
+    }
+    res.status(200).json({ success: true, data: category });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการดึงข้อมูล', error: error.message });
   }
-}
+};
 
-// ลบ
-const deleteCategory = async (req, res) => {
+// 4. อัปเดตหมวดหมู่
+exports.updateCategory = async (req, res) => {
   try {
-    const { id } = req.params
-    await Category.destroy({ where: { id } })
-    res.json({ message: 'deleted' })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+    const category = await Category.findByPk(req.params.id);
+    if (!category) {
+      return res.status(404).json({ success: false, message: 'ไม่พบหมวดหมู่นี้' });
+    }
+    
+    await category.update(req.body);
+    res.status(200).json({ success: true, data: category });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการอัปเดตหมวดหมู่', error: error.message });
   }
-}
+};
 
-module.exports = {
-  getAllCategories,
-  createCategory,
-  updateCategory,
-  deleteCategory
-}
+// 5. ลบหมวดหมู่
+exports.deleteCategory = async (req, res) => {
+  try {
+    const category = await Category.findByPk(req.params.id);
+    if (!category) {
+      return res.status(404).json({ success: false, message: 'ไม่พบหมวดหมู่นี้' });
+    }
+
+    await category.destroy();
+    res.status(200).json({ success: true, message: 'ลบหมวดหมู่เรียบร้อยแล้ว' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการลบหมวดหมู่', error: error.message });
+  }
+};
