@@ -1,0 +1,6 @@
+.register-card { border-radius: 12px; border: none; }
+.register-card .card-title { color: #333; font-weight: 600; }
+.register-card .btn-success { border: none; padding: 10px; font-size: 16px; border-radius: 8px; }
+.register-card .form-control { border-radius: 8px; padding: 10px; }
+.register-card a { color: #0d6efd; text-decoration: none; }
+.register-card a:hover { text-decoration: underline; }

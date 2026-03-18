@@ -1,0 +1,5 @@
+.userform-card { border-radius: 12px; border: none; }
+.userform-card .card-title { color: #333; font-weight: 600; }
+.userform-card .form-control,
+.userform-card .form-select { border-radius: 8px; padding: 10px; }
+.userform-card .btn { border-radius: 8px; padding: 8px 20px; }
