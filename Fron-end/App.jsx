@@ -6,6 +6,11 @@ import CategoryList from './pages/category/CategoryList';
 import CategoryForm from './pages/category/CategoryForm';
 import CategoryReport from './pages/category/CategoryReport';
 
+import ItemList from './pages/item/ItemList';
+import ItemForm from './pages/item/ItemForm';
+import ItemReport from './pages/item/ItemReport';
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +30,16 @@ function App() {
           <Route path="/categories/new" element={<CategoryForm />} />
           <Route path="/categories/edit/:id" element={<CategoryForm />} />
           <Route path="/categories/report" element={<CategoryReport />} />
+          {/* เส้นทางสำหรับระบบ Item ของถั่วพู */}
+          <Route path="/items" element={<ItemList />} />
+          <Route path="/items" element={<ItemList />} />
+          <Route path="/items/new" element={<ItemForm />} />
+          <Route path="/items/edit/:id" element={<ItemForm />} />
+          <Route path="/items/report" element={<ItemReport />} />
+
+          // เพิ่ม Route ใน App.jsx
+       <Route path="/public" element={<ItemPublic />} />
+       <Route path="/report-lost" element={<ItemForm />} /> {/* ใช้ฟอร์มเดียวกัน แต่ซ่อนส่วนพนักงานไว้ */}
         </Routes>
       </div>
     </BrowserRouter>

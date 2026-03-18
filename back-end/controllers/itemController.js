@@ -1,5 +1,6 @@
 const Item = require('../models/Item')
 
+// 1. ดึงข้อมูลทั้งหมด (ต้องมีตัวนี้!)
 const getAllItems = async (req, res) => {
   try {
     const items = await Item.findAll({ raw: true })
@@ -9,6 +10,7 @@ const getAllItems = async (req, res) => {
   }
 }
 
+// 2. ดึงข้อมูลตาม ID (ต้องมีตัวนี้!)
 const getItemById = async (req, res) => {
   try {
     const { id } = req.params
@@ -20,22 +22,30 @@ const getItemById = async (req, res) => {
   }
 }
 
+// 3. สร้างรายการใหม่ (รับ status ด้วย)
 const createItem = async (req, res) => {
   try {
-    const { notice_type_id, place_id, user_id, notice_title } = req.body
-    const item = await Item.create({ notice_type_id, place_id, user_id, notice_title })
+    const { notice_type_id, place_id, user_id, notice_title, notice_status_id } = req.body
+    const item = await Item.create({ 
+      notice_type_id, 
+      place_id, 
+      user_id, 
+      notice_title, 
+      notice_status_id: notice_status_id || 1 
+    })
     res.status(201).json(item)
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 }
 
+// 4. อัปเดตข้อมูล (รับ status ด้วย)
 const updateItem = async (req, res) => {
   try {
     const { id } = req.params
-    const { notice_type_id, place_id, user_id, notice_title } = req.body
+    const { notice_type_id, place_id, user_id, notice_title, notice_status_id } = req.body
     await Item.update(
-      { notice_type_id, place_id, user_id, notice_title },
+      { notice_type_id, place_id, user_id, notice_title, notice_status_id },
       { where: { notice_id: id } }
     )
     res.json({ message: 'updated' })
@@ -44,6 +54,7 @@ const updateItem = async (req, res) => {
   }
 }
 
+// 5. ลบข้อมูล
 const deleteItem = async (req, res) => {
   try {
     const { id } = req.params
@@ -54,6 +65,7 @@ const deleteItem = async (req, res) => {
   }
 }
 
+// *** สำคัญที่สุด: ต้อง Export ให้ครบ 5 ตัว ***
 module.exports = {
   getAllItems,
   getItemById,
