@@ -17,4 +17,7 @@ app.use('/api/locations',  require('./routes/locationRoutes'))
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+
+  const locationRoutes = require('./routes/locationRoutes');
+app.use('/api/locations', locationRoutes);
 })
