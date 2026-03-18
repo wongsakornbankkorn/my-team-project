@@ -50,7 +50,15 @@ const CategoryList = () => {
         style={{ display: 'inline-block', marginBottom: '15px', padding: '10px 15px', backgroundColor: '#4CAF50', color: 'white', textDecoration: 'none', borderRadius: '5px' }}
       >
         + เพิ่มหมวดหมู่ใหม่
+        
       </Link>
+      {/* ปุ่มไปหน้าสรุปรายงาน (แบงค์เพิ่มบรรทัดนี้ได้เลย) */}
+<Link 
+  to="/categories/report" 
+  style={{ display: 'inline-block', marginBottom: '15px', padding: '10px 15px', backgroundColor: '#333', color: 'white', textDecoration: 'none', borderRadius: '5px' }}
+>
+  📋 ดูรายงานสรุป
+</Link>
 
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
         <thead>
