@@ -35,19 +35,17 @@ const getLocationReport = async (req, res) => {
         {
           model: Item,
           as: 'items',
-          attributes: ['id', 'name', 'status', 'createdAt']
+         attributes: ['notice_id', 'notice_title', 'place_id'] // ← แก้
         }
       ]
     });
 
-    const report = locations.map(location => ({
-      locationId: location.id,
-      locationName: location.name,
-      total: location.items.length,
-      lost: location.items.filter(i => i.status === 'lost').length,
-      found: location.items.filter(i => i.status === 'found').length,
-      items: location.items
-    }));
+  const report = locations.map(location => ({
+  locationId: location.id,
+  locationName: location.name,
+  total: location.items.length,
+  items: location.items
+}));
 
     res.json({ data: report });
   } catch (err) {

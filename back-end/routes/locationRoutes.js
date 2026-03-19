@@ -5,14 +5,16 @@ const {
   updateLocation,
   deleteLocation,
   getAllLocations,
-  getLocationById
+  getLocationById,
+  getLocationReport
 } = require('../controllers/locationController');
-const { verifyToken } = require('../middleware/authMiddleware');
 
-router.get('/', verifyToken, getAllLocations);
-router.get('/:id', verifyToken, getLocationById);
-router.post('/', verifyToken, createLocation);
-router.put('/:id', verifyToken, updateLocation);
-router.delete('/:id', verifyToken, deleteLocation);
+// ลบ verifyToken ออกก่อนชั่วคราว
+router.get('/', getAllLocations);
+router.get('/report', getLocationReport);
+router.get('/:id', getLocationById);
+router.post('/', createLocation);
+router.put('/:id', updateLocation);
+router.delete('/:id', deleteLocation);
 
 module.exports = router;

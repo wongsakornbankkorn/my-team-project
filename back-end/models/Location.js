@@ -22,4 +22,5 @@ const Location = sequelize.define('Location', {
 
 module.exports = Location;
 
-Location.hasMany(Item, { foreignKey: 'location_id', as: 'items' });
+const Item = require('../models/Item');
+Location.hasMany(Item, { foreignKey: 'place_id', as: 'items' });
