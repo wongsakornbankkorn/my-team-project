@@ -1,69 +1,51 @@
-const User = require('../models/User')
-const bcrypt = require('bcryptjs')
+const User = require('../models/User');
 
-// GET /api/users
-const getAllUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
   try {
-    const users = await User.findAll({
-      attributes: { exclude: ['password'] }
-    })
-    res.json(users)
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message })
+    const users = await User.findAll({ raw: true });
+    // แปลงเลขกลับเป็นคำให้หน้าเว็บใช้ง่ายๆ
+    const formattedUsers = users.map(user => ({
+      ...user,
+      role: user.role_id === 1 ? 'admin' : 'user'
+    }));
+    res.json(formattedUsers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-}
+};
 
-// GET /api/users/:id
-const getUserById = async (req, res) => {
+exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id, {
-      attributes: { exclude: ['password'] }
-    })
-    if (!user) return res.status(404).json({ message: 'ไม่พบ User' })
-    res.json(user)
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message })
+    const user = await User.findOne({ where: { user_id: req.params.id }, raw: true });
+    if (!user) return res.status(404).json({ message: 'ไม่พบผู้ใช้งาน' });
+    
+    user.role = user.role_id === 1 ? 'admin' : 'user';
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-}
+};
 
-// PUT /api/users/:id
-const updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   try {
-    const { username, password, role_id } = req.body
+    const { username, password, role } = req.body;
+    const updateData = { username };
+    
+    if (password) updateData.password = password;
+    if (role) updateData.role_id = role === 'admin' ? 1 : 2;
 
-    const user = await User.findByPk(req.params.id)
-    if (!user) return res.status(404).json({ message: 'ไม่พบ User' })
-
-    const updateData = { username, role_id }
-    if (password) {
-      updateData.password = await bcrypt.hash(password, 10)
-    }
-
-    await user.update(updateData)
-
-    res.json({
-      message: 'อัปเดต User สำเร็จ',
-      user: {
-        id: user.user_id,
-        username: user.username,
-        role_id: user.role_id
-      }
-    })
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message })
+    await User.update(updateData, { where: { user_id: req.params.id } });
+    res.json({ message: 'อัปเดตข้อมูลผู้ใช้สำเร็จ' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-}
+};
 
-// DELETE /api/users/:id
-const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    if (!user) return res.status(404).json({ message: 'ไม่พบ User' })
-    await user.destroy()
-    res.json({ message: 'ลบ User สำเร็จ' })
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message })
+    await User.destroy({ where: { user_id: req.params.id } });
+    res.json({ message: 'ลบผู้ใช้สำเร็จ' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-}
-
-module.exports = { getAllUsers, getUserById, updateUser, deleteUser }
+};

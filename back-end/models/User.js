@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize')
-const sequelize = require('../config/db')
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
 const User = sequelize.define('User', {
   user_id: {
@@ -9,8 +9,7 @@ const User = sequelize.define('User', {
   },
   username: {
     type: DataTypes.STRING(32),
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
   password: {
     type: DataTypes.STRING(32),
@@ -18,15 +17,16 @@ const User = sequelize.define('User', {
   },
   role_id: {
     type: DataTypes.INTEGER,
-    defaultValue: 2  // สมมติ 1 = admin, 2 = user
+    allowNull: false,
+    defaultValue: 2 // 1 = Admin, 2 = User
   },
   regist_date: {
-    type: DataTypes.INTEGER,
-    defaultValue: () => Math.floor(Date.now() / 1000) // Unix timestamp
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
   tableName: 'users',
-  timestamps: false  // ปิด เพราะไม่มี createdAt/updatedAt
-})
+  timestamps: false
+});
 
-module.exports = User
+module.exports = User;

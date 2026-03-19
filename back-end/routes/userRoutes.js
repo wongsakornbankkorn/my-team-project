@@ -1,17 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const {
-  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
-} = require("../controllers/userController");
-const { protect, adminOnly } = require("../middleware/authMiddleware");
+const userController = require('../controllers/userController');
 
-// ทุก route ต้อง Login ก่อน (protect)
-router.get("/", protect, adminOnly, getAllUsers);       // Admin เท่านั้น
-router.get("/:id", protect, getUserById);
-router.put("/:id", protect, updateUser);
-router.delete("/:id", protect, adminOnly, deleteUser); // Admin เท่านั้น
+// สามารถเอา authMiddleware มาใส่คั่นตรงนี้ได้ในอนาคต เพื่อกันไม่ให้คนนอกเข้ามาดู
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUserById);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;
