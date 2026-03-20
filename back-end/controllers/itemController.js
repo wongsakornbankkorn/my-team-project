@@ -1,6 +1,6 @@
 const Item = require('../models/Item')
 
-// 1. ดึงข้อมูลทั้งหมด (ต้องมีตัวนี้!)
+// 1. ดึงข้อมูลทั้งหมด
 const getAllItems = async (req, res) => {
   try {
     const items = await Item.findAll({ raw: true })
@@ -10,7 +10,7 @@ const getAllItems = async (req, res) => {
   }
 }
 
-// 2. ดึงข้อมูลตาม ID (ต้องมีตัวนี้!)
+// 2. ดึงข้อมูลตาม ID
 const getItemById = async (req, res) => {
   try {
     const { id } = req.params
@@ -22,16 +22,16 @@ const getItemById = async (req, res) => {
   }
 }
 
-// 3. สร้างรายการใหม่ (รับ status ด้วย)
+// 3. สร้างรายการใหม่
 const createItem = async (req, res) => {
   try {
     const { notice_type_id, place_id, user_id, notice_title, notice_status_id } = req.body
-    const item = await Item.create({ 
-      notice_type_id, 
-      place_id, 
-      user_id, 
-      notice_title, 
-      notice_status_id: notice_status_id || 1 
+    const item = await Item.create({
+      notice_type_id,
+      place_id,
+      user_id,
+      notice_title,
+      notice_status_id: notice_status_id || 1
     })
     res.status(201).json(item)
   } catch (err) {
@@ -39,7 +39,7 @@ const createItem = async (req, res) => {
   }
 }
 
-// 4. อัปเดตข้อมูล (รับ status ด้วย)
+// 4. อัปเดตข้อมูล
 const updateItem = async (req, res) => {
   try {
     const { id } = req.params
@@ -65,16 +65,16 @@ const deleteItem = async (req, res) => {
   }
 }
 
+// 6. รายงานรายเดือน
 const getMonthlyReport = async (req, res) => {
   try {
     const sequelize = require('../config/db')
     const { QueryTypes } = require('sequelize')
-
     const report = await sequelize.query(
       `SELECT 
-        YEAR(created_at)       AS year,
-        MONTH(created_at)      AS month,
-        COUNT(*)               AS total,
+        YEAR(created_at)          AS year,
+        MONTH(created_at)         AS month,
+        COUNT(*)                  AS total,
         SUM(notice_status_id = 1) AS lost,
         SUM(notice_status_id = 2) AS found,
         SUM(notice_status_id = 3) AS returned
@@ -89,11 +89,37 @@ const getMonthlyReport = async (req, res) => {
   }
 }
 
+// 7. รายงานแบ่งตามประเภทหมวดหมู่ (ใหม่)
+const getReportByCategory = async (req, res) => {
+  try {
+    const sequelize = require('../config/db')
+    const { QueryTypes } = require('sequelize')
+    const report = await sequelize.query(
+      `SELECT 
+        c.id                        AS category_id,
+        c.notice_type_name          AS category_name,
+        COUNT(n.notice_id)          AS total,
+        SUM(n.notice_status_id = 1) AS lost,
+        SUM(n.notice_status_id = 2) AS found,
+        SUM(n.notice_status_id = 3) AS returned
+       FROM categories c
+       LEFT JOIN notice n ON n.notice_type_id = c.id
+       GROUP BY c.id, c.notice_type_name
+       ORDER BY total DESC`,
+      { type: QueryTypes.SELECT }
+    )
+    res.json(report)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
+
 module.exports = {
   getAllItems,
   getItemById,
   createItem,
   updateItem,
   deleteItem,
-  getMonthlyReport  
+  getMonthlyReport,
+  getReportByCategory   // ← เพิ่ม
 }

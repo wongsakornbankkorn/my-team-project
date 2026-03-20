@@ -7,11 +7,13 @@ const {
   createItem,
   updateItem,
   deleteItem,
-  getMonthlyReport
+  getMonthlyReport,
+  getReportByCategory   // ← เพิ่ม
 } = require('../controllers/itemController')
 
-// ต้องวาง /report/monthly ก่อน /:id เสมอ
-router.get('/report/monthly', getMonthlyReport)
+// static routes ต้องอยู่ก่อน /:id เสมอ
+router.get('/report/monthly',     getMonthlyReport)
+router.get('/report/by-category', getReportByCategory)   // ← เพิ่ม
 
 router.get('/',       getAllItems)
 router.get('/:id',    getItemById)

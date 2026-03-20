@@ -26,10 +26,16 @@ const itemService = {
   deleteItem: async (id) => {
     const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
-  }, 
+  },
 
   getMonthlyReport: async () => {
     const response = await axios.get(`${API_URL}/report/monthly`);
+    return response.data;
+  },
+
+  // ← เพิ่ม
+  getReportByCategory: async () => {
+    const response = await axios.get(`${API_URL}/report/by-category`);
     return response.data;
   }
 };
