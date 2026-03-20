@@ -1,14 +1,16 @@
-// เพิ่มใน destructure บนสุด
+const express = require('express')
+const router = express.Router()
+
 const {
   getAllItems,
   getItemById,
   createItem,
   updateItem,
   deleteItem,
-  getMonthlyReport   // ← เพิ่ม
+  getMonthlyReport
 } = require('../controllers/itemController')
 
-// เพิ่ม route นี้ก่อน router.get('/:id', ...)
+// ต้องวาง /report/monthly ก่อน /:id เสมอ
 router.get('/report/monthly', getMonthlyReport)
 
 router.get('/',       getAllItems)
