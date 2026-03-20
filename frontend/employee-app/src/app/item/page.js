@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import itemService from '../../services/itemService';
 
 export default function ItemList() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [editId, setEditId] = useState(null);
+  const [newStatus, setNewStatus] = useState(1);
 
   const fetchItems = async () => {
     try {
@@ -23,14 +24,14 @@ export default function ItemList() {
 
   useEffect(() => { fetchItems(); }, []);
 
-  const handleDelete = async (id) => {
-    if (confirm('ยืนยันการลบรายการนี้?')) {
-      try {
-        await itemService.deleteItem(id);
-        fetchItems();
-      } catch (err) {
-        alert('เกิดข้อผิดพลาดในการลบ');
-      }
+  const handleUpdateStatus = async (id) => {
+    try {
+      await itemService.updateItem(id, { notice_status_id: newStatus });
+      alert('อัปเดตสถานะสำเร็จ!');
+      setEditId(null);
+      fetchItems();
+    } catch (err) {
+      alert('เกิดข้อผิดพลาดในการอัปเดตสถานะ');
     }
   };
 
@@ -46,11 +47,7 @@ export default function ItemList() {
 
   return (
     <div>
-      <h2>📦 จัดการรายการแจ้งของหาย / เจอ (ถั่วพู)</h2>
-      <div style={{ marginBottom: '15px' }}>
-        <Link href="/item/form"><button style={btn}>+ เพิ่มรายการใหม่</button></Link>
-        <Link href="/item/report"><button style={{...btn, backgroundColor: '#607d8b', marginLeft: '10px'}}>📊 ดูรายงาน</button></Link>
-      </div>
+      <h2>📦 การจัดการสถานะ (ถั่วพู)</h2>
 
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', backgroundColor: 'white' }}>
         <thead>
@@ -60,7 +57,7 @@ export default function ItemList() {
             <th style={{ padding: '10px' }}>รหัสหมวดหมู่</th>
             <th style={{ padding: '10px' }}>สถานที่</th>
             <th style={{ padding: '10px' }}>สถานะ</th>
-            <th style={{ padding: '10px' }}>จัดการ</th>
+            <th style={{ padding: '10px' }}>อัปเดตสถานะ</th>
           </tr>
         </thead>
         <tbody>
@@ -72,15 +69,33 @@ export default function ItemList() {
               <td style={{ padding: '10px' }}>รหัส {item.place_id}</td>
               <td style={{ padding: '10px', fontWeight: 'bold' }}>{getStatusLabel(item.notice_status_id)}</td>
               <td style={{ padding: '10px' }}>
-                <Link href={`/item/form?id=${item.notice_id}`}>
-                  <button style={{...btn, backgroundColor: '#2196F3', marginRight: '5px'}}>แก้ไข</button>
-                </Link>
-                <button onClick={() => handleDelete(item.notice_id)} style={{...btn, backgroundColor: '#f44336'}}>ลบ</button>
+                {editId === item.notice_id ? (
+                  <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
+                    <select
+                      value={newStatus}
+                      onChange={e => setNewStatus(e.target.value)}
+                      style={{ padding: '5px' }}
+                    >
+                      <option value={1}>🚨 กำลังตามหา</option>
+                      <option value={2}>✅ พบของแล้ว</option>
+                      <option value={3}>🎉 คืนเจ้าของแล้ว</option>
+                    </select>
+                    <button onClick={() => handleUpdateStatus(item.notice_id)} style={{...btn, backgroundColor: '#4CAF50'}}>บันทึก</button>
+                    <button onClick={() => setEditId(null)} style={{...btn, backgroundColor: '#9e9e9e'}}>ยกเลิก</button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => { setEditId(item.notice_id); setNewStatus(item.notice_status_id); }}
+                    style={{...btn, backgroundColor: '#2196F3'}}
+                  >
+                    เปลี่ยนสถานะ
+                  </button>
+                )}
               </td>
             </tr>
           )) : (
             <tr>
-              <td colSpan="6" style={{ padding: '20px', color: '#888' }}>ยังไม่มีรายการ กด "+ เพิ่มรายการใหม่" เพื่อเริ่มต้น</td>
+              <td colSpan="6" style={{ padding: '20px', color: '#888' }}>ยังไม่มีรายการ</td>
             </tr>
           )}
         </tbody>
