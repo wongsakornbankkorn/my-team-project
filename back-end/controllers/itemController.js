@@ -65,11 +65,35 @@ const deleteItem = async (req, res) => {
   }
 }
 
-// *** สำคัญที่สุด: ต้อง Export ให้ครบ 5 ตัว ***
+const getMonthlyReport = async (req, res) => {
+  try {
+    const sequelize = require('../config/db')
+    const { QueryTypes } = require('sequelize')
+
+    const report = await sequelize.query(
+      `SELECT 
+        YEAR(created_at)       AS year,
+        MONTH(created_at)      AS month,
+        COUNT(*)               AS total,
+        SUM(notice_status_id = 1) AS lost,
+        SUM(notice_status_id = 2) AS found,
+        SUM(notice_status_id = 3) AS returned
+       FROM notice
+       GROUP BY YEAR(created_at), MONTH(created_at)
+       ORDER BY year DESC, month DESC`,
+      { type: QueryTypes.SELECT }
+    )
+    res.json(report)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+}
+
 module.exports = {
   getAllItems,
   getItemById,
   createItem,
   updateItem,
-  deleteItem
+  deleteItem,
+  getMonthlyReport  
 }

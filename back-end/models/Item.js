@@ -26,12 +26,15 @@ const Item = sequelize.define('Item', {
     defaultValue: 1
   },
   notice_status_id: {
-    // 👈 ใน DB ดั้งเดิมไม่มีช่องนี้ เราสั่งให้ Sequelize สร้างเพิ่มให้เลย
     type: DataTypes.INTEGER,
-    defaultValue: 1 
+    defaultValue: 1
+  },
+  created_at: {          
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'notice', // 👈 ชี้ให้ตรงกับชื่อตารางในฐานข้อมูล
+  tableName: 'notice',
   timestamps: false
 });
 
