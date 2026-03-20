@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
+// Item.js ที่ถูกต้อง
 const Item = sequelize.define('Item', {
   notice_id: {
     type: DataTypes.INTEGER,
@@ -26,12 +27,19 @@ const Item = sequelize.define('Item', {
     defaultValue: 1
   },
   notice_status_id: {
-    // 👈 ใน DB ดั้งเดิมไม่มีช่องนี้ เราสั่งให้ Sequelize สร้างเพิ่มให้เลย
     type: DataTypes.INTEGER,
-    defaultValue: 1 
+    defaultValue: 1
+  },
+  image_url: {               // ← เพิ่มตรงนี้ ก่อน created_at
+    type: DataTypes.STRING(500),
+    allowNull: true
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'notice', // 👈 ชี้ให้ตรงกับชื่อตารางในฐานข้อมูล
+  tableName: 'notice',
   timestamps: false
 });
 

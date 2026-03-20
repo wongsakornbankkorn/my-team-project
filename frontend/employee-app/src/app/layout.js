@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 
 export default function RootLayout({ children }) {
   const pathname = usePathname(); 
-  const [isClient, setIsClient] = useState(false); // เพิ่มตัวเช็คสถานะ
+  const [isClient, setIsClient] = useState(false); 
   const [userRole, setUserRole] = useState(null);
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
-    setIsClient(true); // บอกว่าระบบโหลดฝั่งผู้ใช้เสร็จแล้ว
+    setIsClient(true); 
     setUserRole(localStorage.getItem('role'));
     setUsername(localStorage.getItem('username'));
   }, [pathname]);
@@ -38,10 +38,13 @@ export default function RootLayout({ children }) {
               <Link href="/category" style={navStyle}>📂 หมวดหมู่</Link>
               <Link href="/location" style={navStyle}>📍 สถานที่</Link>
               <Link href="/user" style={navStyle}>👥 สมาชิก</Link>
+              
+              {/* 👇 เพิ่มโค้ดสรุปรายงานตรงนี้ครับ 👇 */}
+              <Link href="/item/summary" style={navStyle}>📊 สรุปรายงาน</Link>
             </>
           )}
           
-          {/* 👇 สลับปุ่ม เข้าสู่ระบบ / ออกจากระบบ แบบเป๊ะๆ */}
+          {/* 👇 สลับปุ่ม เข้าสู่ระบบ / ออกจากระบบ */}
           {isClient && username ? (
             <button onClick={handleLogout} style={logoutBtn}>🚪 ออกจากระบบ</button>
           ) : isClient ? (

@@ -14,7 +14,6 @@ app.use('/api/users',      require('./routes/userRoutes'))
 app.use('/api/auth',       require('./routes/authRoutes'))
 app.use('/api/locations',  require('./routes/locationRoutes'))
 
-// 👇 แก้ไขตรงนี้ครับ! เปลี่ยนเป็น { alter: true } เพื่อให้ระบบอัปเดตตารางที่พังให้สมบูรณ์
 sequelize.sync({ alter: true })
   .then(() => console.log('Database synced & Tables updated! 🚀'))
   .catch(err => console.error('Sync error:', err))
@@ -29,3 +28,8 @@ app.get('/', (req, res) => {
   res.send('Server is running')
   
 })
+
+const path = require('path')
+
+// เพิ่มหลัง app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
