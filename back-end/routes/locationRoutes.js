@@ -1,8 +1,20 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const {
+  createLocation,
+  updateLocation,
+  deleteLocation,
+  getAllLocations,
+  getLocationById,
+  getLocationReport
+} = require('../controllers/locationController');
 
-router.get('/', (req, res) => {
-  res.json({ message: 'location routes ok' })
-})
+// ลบ verifyToken ออกก่อนชั่วคราว
+router.get('/', getAllLocations);
+router.get('/report', getLocationReport);
+router.get('/:id', getLocationById);
+router.post('/', createLocation);
+router.put('/:id', updateLocation);
+router.delete('/:id', deleteLocation);
 
-module.exports = router
+module.exports = router;
