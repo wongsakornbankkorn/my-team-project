@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-require('./config/db')
+const sequelize = require('./config/db')
 
 const app = express()
 
@@ -14,10 +14,18 @@ app.use('/api/users',      require('./routes/userRoutes'))
 app.use('/api/auth',       require('./routes/authRoutes'))
 app.use('/api/locations',  require('./routes/locationRoutes'))
 
+// 👇 แก้ไขตรงนี้ครับ! เปลี่ยนเป็น { alter: true } เพื่อให้ระบบอัปเดตตารางที่พังให้สมบูรณ์
+sequelize.sync({ alter: true })
+  .then(() => console.log('Database synced & Tables updated! 🚀'))
+  .catch(err => console.error('Sync error:', err))
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 
-  const locationRoutes = require('./routes/locationRoutes');
-app.use('/api/locations', locationRoutes);
+})
+
+app.get('/', (req, res) => {
+  res.send('Server is running')
+  
 })
