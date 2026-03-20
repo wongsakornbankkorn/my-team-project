@@ -9,7 +9,9 @@ export default function ReportUnified() {
     notice_title: '',
     notice_type_id: '',
     place_id: '',
-    notice_status_id: '1'
+    notice_status_id: '1',
+    description: ''
+
   });
 
   const [categories, setCategories] = useState([]);
@@ -124,9 +126,20 @@ export default function ReportUnified() {
                 {loc.name}
               </option>
             )) : <option disabled>กำลังโหลดข้อมูล...</option>}
-            
-          </select>
 
+          </select>
+          <div>
+
+            <label style={labelStyle}>รายละเอียดเพิ่มเติม:</label>
+            <textarea
+              style={{ ...inputStyle, resize: 'vertical' }}
+              placeholder="เช่น ด้านหน้าตึกเคมี พบบริเวณโต๊ะกินข้าว..."
+              rows="3"
+              value={formData.description}
+              onChange={e => setFormData({ ...formData, description: e.target.value })}
+            />
+
+          </div>
           <button type="submit" disabled={isLoading} style={{ ...btnStyle, backgroundColor: isLoading ? '#93c5fd' : '#3B82F6' }}>
             {isLoading ? 'กำลังบันทึก...' : 'บันทึกข้อมูล'}
           </button>
