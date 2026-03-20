@@ -28,3 +28,8 @@ app.get('/', (req, res) => {
   res.send('Server is running')
   
 })
+
+const path = require('path')
+
+// เพิ่มหลัง app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))

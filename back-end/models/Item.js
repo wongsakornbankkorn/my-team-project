@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
+// Item.js ที่ถูกต้อง
 const Item = sequelize.define('Item', {
   notice_id: {
     type: DataTypes.INTEGER,
@@ -29,7 +30,11 @@ const Item = sequelize.define('Item', {
     type: DataTypes.INTEGER,
     defaultValue: 1
   },
-  created_at: {          
+  image_url: {               // ← เพิ่มตรงนี้ ก่อน created_at
+    type: DataTypes.STRING(500),
+    allowNull: true
+  },
+  created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   }

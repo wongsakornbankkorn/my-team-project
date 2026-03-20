@@ -26,12 +26,15 @@ const getItemById = async (req, res) => {
 const createItem = async (req, res) => {
   try {
     const { notice_type_id, place_id, user_id, notice_title, notice_status_id } = req.body
+    const image_url = req.file ? `/uploads/${req.file.filename}` : null  // ← path รูปที่บันทึก
+
     const item = await Item.create({
       notice_type_id,
       place_id,
       user_id,
       notice_title,
-      notice_status_id: notice_status_id || 1
+      notice_status_id: notice_status_id || 1,
+      image_url   // ← เก็บ path รูปใน DB
     })
     res.status(201).json(item)
   } catch (err) {
