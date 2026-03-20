@@ -14,9 +14,9 @@ app.use('/api/users',      require('./routes/userRoutes'))
 app.use('/api/auth',       require('./routes/authRoutes'))
 app.use('/api/locations',  require('./routes/locationRoutes'))
 
-// Sync Database
-sequelize.sync({ force: false })
-  .then(() => console.log('Database synced & Tables created (if not exist)'))
+// 👇 แก้ไขตรงนี้ครับ! เปลี่ยนเป็น { alter: true } เพื่อให้ระบบอัปเดตตารางที่พังให้สมบูรณ์
+sequelize.sync({ alter: true })
+  .then(() => console.log('Database synced & Tables updated! 🚀'))
   .catch(err => console.error('Sync error:', err))
 
 const PORT = process.env.PORT || 5000

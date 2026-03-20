@@ -13,19 +13,24 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       const res = await authService.login(formData);
+      localStorage.setItem('username', res.user.username);
+      localStorage.setItem('role', res.user.role_id);
+      
       alert('✅ เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับคุณ ' + res.user.username);
-      router.push('/');
+      
+      // 👇 เปลี่ยนบรรทัดนี้! ใช้ window.location.href เพื่อบังคับเว็บรีเฟรช 100%
+      window.location.href = '/'; 
+      
     } catch (error) {
       alert('❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่');
       setIsLoading(false);
     }
   };
-
   return (
     <div style={styles.pageContainer}>
       <div style={styles.loginCard}>

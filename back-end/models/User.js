@@ -18,12 +18,9 @@ const User = sequelize.define('User', {
   role_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 2 // 1 = Admin, 2 = User
-  },
-  regist_date: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+    defaultValue: 2 // 2 = สิทธิ์ผู้ใช้งานทั่วไป
   }
+  // ไม่ต้องใส่ regist_date ปล่อยให้ระบบจัดการเอง
 }, {
   tableName: 'users',
   timestamps: false

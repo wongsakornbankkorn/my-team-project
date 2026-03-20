@@ -1,27 +1,60 @@
+"use client";
 import Link from 'next/link';
-// import './globals.css'; // ถ้ามีไฟล์ css ให้เปิดคอมเมนต์ตรงนี้
+import { usePathname } from 'next/navigation'; 
+import { useEffect, useState } from 'react';
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname(); 
+  const [isClient, setIsClient] = useState(false); // เพิ่มตัวเช็คสถานะ
+  const [userRole, setUserRole] = useState(null);
+  const [username, setUsername] = useState(null);
+
+  useEffect(() => {
+    setIsClient(true); // บอกว่าระบบโหลดฝั่งผู้ใช้เสร็จแล้ว
+    setUserRole(localStorage.getItem('role'));
+    setUsername(localStorage.getItem('username'));
+  }, [pathname]);
+
+  const handleLogout = () => {
+    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      window.location.href = '/user/login'; 
+    }
+  };
+
   return (
     <html lang="th">
-      <body style={{ margin: 0, fontFamily: 'sans-serif', backgroundColor: '#f4f7f6' }}>
-        {/* แถบเมนู (Navbar) */}
+      <body style={{ margin: 0, fontFamily: "'Prompt', sans-serif", backgroundColor: '#f4f7f6' }}>
         <nav style={{ backgroundColor: '#2c3e50', padding: '15px 30px', display: 'flex', gap: '25px', alignItems: 'center' }}>
-          <strong style={{ fontSize: '20px', color: '#f1c40f', marginRight: '20px' }}>🕵️ ระบบของหาย</strong>
+          <strong style={{ fontSize: '20px', color: '#f1c40f', marginRight: 'auto' }}>🕵️ ระบบของหาย</strong>
+          
           <Link href="/" style={navStyle}>🏠 หน้าหลัก</Link>
-          <Link href="/item" style={navStyle}>📦 การแจ้ง (ถั่วพู)</Link>
-          <Link href="/category" style={navStyle}>📂 หมวดหมู่ (แบงค์)</Link>
-          <Link href="/location" style={navStyle}>📍 สถานที่ (หนึ่ง)</Link>
-          <Link href="/user" style={navStyle}>👥 สมาชิก (ปั้น)</Link>
+          
+          {/* 👇 โชว์เมนูแอดมิน ก็ต่อเมื่อระบบเช็คชัวร์แล้วว่าเป็นแอดมิน */}
+          {isClient && userRole == '1' && (
+            <>
+              <Link href="/item" style={navStyle}>📦 การแจ้ง</Link>
+              <Link href="/category" style={navStyle}>📂 หมวดหมู่</Link>
+              <Link href="/location" style={navStyle}>📍 สถานที่</Link>
+              <Link href="/user" style={navStyle}>👥 สมาชิก</Link>
+            </>
+          )}
+          
+          {/* 👇 สลับปุ่ม เข้าสู่ระบบ / ออกจากระบบ แบบเป๊ะๆ */}
+          {isClient && username ? (
+            <button onClick={handleLogout} style={logoutBtn}>🚪 ออกจากระบบ</button>
+          ) : isClient ? (
+            <button onClick={() => window.location.href = '/user/login'} style={loginBtn}>🔐 เข้าสู่ระบบ</button>
+          ) : null}
         </nav>
         
-        {/* พื้นที่แสดงเนื้อหาของแต่ละหน้า */}
-        <main style={{ padding: '20px' }}>
-          {children}
-        </main>
+        <main style={{ padding: '20px' }}>{children}</main>
       </body>
     </html>
   );
 }
 
-const navStyle = { color: 'white', textDecoration: 'none', fontSize: '16px' };
+const navStyle = { color: 'white', textDecoration: 'none', fontSize: '15px' };
+const logoutBtn = { padding: '8px 15px', backgroundColor: '#e74c3c', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' };
+const loginBtn = { padding: '8px 15px', backgroundColor: '#3498db', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' };
