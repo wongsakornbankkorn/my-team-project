@@ -5,21 +5,22 @@ import axios from 'axios';
 
 export default function ReportUnified() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ 
-    notice_title: '', 
-    notice_type_id: '', 
+  const [formData, setFormData] = useState({
+    notice_title: '',
+    notice_type_id: '',
     place_id: '',
-    notice_status_id: '1' 
+    notice_status_id: '1'
   });
-  
-  const [categories, setCategories] = useState([]); 
+
+  const [categories, setCategories] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await axios.get('http://localhost:5000/api/categories');
-        
+
         // 🛡️ เพิ่มเกราะป้องกันตรงนี้! เช็คให้ชัวร์ว่าเป็น Array ก่อนเอาไปใช้
         if (Array.isArray(res.data)) {
           setCategories(res.data);
@@ -28,12 +29,25 @@ export default function ReportUnified() {
         } else {
           setCategories([]); // ถ้าไม่ใช่เลย ก็ให้เป็นกรอบเปล่าๆ หน้าเว็บจะได้ไม่พัง
         }
-        
+
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
     fetchCategories();
+
+    const fetchLocations = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/locations');
+        if (res.data && Array.isArray(res.data.data)) {
+          setLocations(res.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      }
+    };
+    fetchLocations();
+
   }, []);
 
   const handleSubmit = async (e) => {
@@ -42,10 +56,10 @@ export default function ReportUnified() {
     try {
       await axios.post('http://localhost:5000/api/items', {
         ...formData,
-        user_id: 1 
+        user_id: 1
       });
       alert('✅ บันทึกข้อมูลลงระบบสำเร็จ!');
-      router.push('/'); 
+      router.push('/');
     } catch (error) {
       alert('❌ เกิดข้อผิดพลาด กรุณาลองใหม่');
       setIsLoading(false);
@@ -56,15 +70,15 @@ export default function ReportUnified() {
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px', fontFamily: "'Prompt', sans-serif" }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)', width: '100%', maxWidth: '500px', borderTop: '5px solid #3B82F6' }}>
         <h2 style={{ textAlign: 'center', color: '#2c3e50', marginTop: 0 }}>📝 ฟอร์มแจ้งข้อมูล</h2>
-        
+
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
+
           <div>
             <label style={labelStyle}>ประเภทการแจ้ง:</label>
-            <select 
-              style={inputStyle} 
-              value={formData.notice_status_id} 
-              onChange={e => setFormData({...formData, notice_status_id: e.target.value})}
+            <select
+              style={inputStyle}
+              value={formData.notice_status_id}
+              onChange={e => setFormData({ ...formData, notice_status_id: e.target.value })}
             >
               <option value="1">🔴 ฉันทำของหาย (กำลังตามหา)</option>
               <option value="2">🟢 ฉันเก็บของได้ (ประกาศหาเจ้าของ)</option>
@@ -73,35 +87,45 @@ export default function ReportUnified() {
 
           <div>
             <label style={labelStyle}>ชื่อสิ่งของ:</label>
-            <input type="text" required style={inputStyle} placeholder="เช่น กระเป๋าสตางค์, กุญแจรถ" 
-                   value={formData.notice_title} onChange={e => setFormData({...formData, notice_title: e.target.value})} />
+            <input type="text" required style={inputStyle} placeholder="เช่น กระเป๋าสตางค์, กุญแจรถ"
+              value={formData.notice_title} onChange={e => setFormData({ ...formData, notice_title: e.target.value })} />
           </div>
-          
+
           <div>
             <label style={labelStyle}>หมวดหมู่สิ่งของ:</label>
-            <select 
-              required 
-              style={inputStyle} 
-              value={formData.notice_type_id} 
-              onChange={e => setFormData({...formData, notice_type_id: e.target.value})}
+            <select
+              required
+              style={inputStyle}
+              value={formData.notice_type_id}
+              onChange={e => setFormData({ ...formData, notice_type_id: e.target.value })}
             >
               <option value="" disabled>-- กรุณาเลือกหมวดหมู่ --</option>
-              
+
               {/* 👇 สังเกตตรงวงเล็บ (cat, index) และ key={index} นะครับ นี่คือตัวแก้ Error! */}
               {Array.isArray(categories) && categories.length > 0 ? categories.map((cat, index) => (
                 <option key={index} value={cat.notice_type_id || cat.id}>
                   {cat.notice_type_name || cat.name}
                 </option>
               )) : <option disabled>กำลังโหลดข้อมูล...</option>}
-              
+
             </select>
           </div>
-          
-          <div>
-            <label style={labelStyle}>รหัสสถานที่ (รอระบบของหนึ่ง):</label>
-            <input type="number" required style={inputStyle} placeholder="เช่น 1" 
-                   value={formData.place_id} onChange={e => setFormData({...formData, place_id: e.target.value})} />
-          </div>
+
+          <label style={labelStyle}>สถานที่:</label>
+          <select
+            required
+            style={inputStyle}
+            value={formData.place_id}
+            onChange={e => setFormData({ ...formData, place_id: e.target.value })}
+          >
+            <option value="" disabled>-- กรุณาเลือกสถานที่ --</option>
+            {locations.length > 0 ? locations.map((loc, index) => (
+              <option key={index} value={loc.id}>
+                {loc.name}
+              </option>
+            )) : <option disabled>กำลังโหลดข้อมูล...</option>}
+            
+          </select>
 
           <button type="submit" disabled={isLoading} style={{ ...btnStyle, backgroundColor: isLoading ? '#93c5fd' : '#3B82F6' }}>
             {isLoading ? 'กำลังบันทึก...' : 'บันทึกข้อมูล'}
