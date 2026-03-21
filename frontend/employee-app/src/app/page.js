@@ -265,6 +265,7 @@ export default function HomePage() {
                   <thead>
                     <tr>
                       <th style={s.th}>หัวข้อรายการ</th>
+                      <th style={s.th}>รายละเอียด</th>
                       <th style={s.th}>สถานะ</th>
                       <th style={{ ...s.th, textAlign: 'center' }}>สถานที่</th>
                     </tr>
@@ -278,6 +279,7 @@ export default function HomePage() {
                         onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                       >
                         <td style={s.td}><span style={s.itemTitle}>{item.notice_title}</span></td>
+                        <td style={s.td}>{item.description || '-'}</td>
                         <td style={s.td}>{getStatusBadge(item.notice_status_id)}</td>
                         <td style={{ ...s.td, textAlign: 'center' }}>
                           <div style={s.placeImgWrap}>
