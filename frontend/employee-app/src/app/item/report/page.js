@@ -17,6 +17,7 @@ export default function ReportUnified() {
   const [categories, setCategories] = useState([]);
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -56,9 +57,17 @@ export default function ReportUnified() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/items', {
-        ...formData,
-        user_id: 1
+      const data = new FormData();
+      data.append('notice_title', formData.notice_title);
+      data.append('notice_type_id', formData.notice_type_id);
+      data.append('place_id', formData.place_id);
+      data.append('notice_status_id', formData.notice_status_id);
+      data.append('description', formData.description);
+      data.append('user_id', 1);
+      if (imageFile) data.append('image', imageFile);
+
+      await axios.post('http://localhost:5000/api/items', data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert('✅ บันทึกข้อมูลลงระบบสำเร็จ!');
       router.push('/');
@@ -140,6 +149,25 @@ export default function ReportUnified() {
             />
 
           </div>
+
+
+          <div>
+            <label style={labelStyle}>รูปภาพสิ่งของ:</label>
+            <input
+              type="file"
+              accept="image/*"
+              style={inputStyle}
+              onChange={e => setImageFile(e.target.files[0])}
+            />
+            {imageFile && (
+              <img
+                src={URL.createObjectURL(imageFile)}
+                alt="preview"
+                style={{ width: '100%', marginTop: '10px', borderRadius: '8px', maxHeight: '200px', objectFit: 'cover' }}
+              />
+            )}
+          </div>
+
           <button type="submit" disabled={isLoading} style={{ ...btnStyle, backgroundColor: isLoading ? '#93c5fd' : '#3B82F6' }}>
             {isLoading ? 'กำลังบันทึก...' : 'บันทึกข้อมูล'}
           </button>

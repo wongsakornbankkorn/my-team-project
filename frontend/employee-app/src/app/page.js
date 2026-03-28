@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import itemService from '../services/itemService';
- 
+
 function badgeDot(color) {
   return {
     width: 6, height: 6, borderRadius: '50%', background: color,
@@ -10,7 +10,7 @@ function badgeDot(color) {
     display: 'inline-block', flexShrink: 0,
   };
 }
- 
+
 function roleTagStyle(role) {
   return {
     fontSize: 13, fontWeight: 500, letterSpacing: '0.04em',
@@ -20,7 +20,7 @@ function roleTagStyle(role) {
     border: role === '1' ? '1px solid rgba(245,158,11,0.3)' : '1px solid rgba(99,102,241,0.25)',
   };
 }
- 
+
 const execs = [
   {
     name: 'คุณแบงค์',
@@ -60,14 +60,29 @@ const execs = [
     role: 'CFO',
   },
 ];
- 
+
 const adminItems = [
   { icon: '📦', label: 'แจ้งหาย / เจอ', who: 'ถั่วพู', path: '/item', accent: '#ef4444' },
   { icon: '📂', label: 'หมวดหมู่', who: 'แบงค์', path: '/category', accent: '#f59e0b' },
   { icon: '📍', label: 'สถานที่', who: 'หนึ่ง', path: '/location', accent: '#22c55e' },
   { icon: '👥', label: 'ผู้ใช้งาน', who: 'ปั้น', path: '/user', accent: '#3b82f6' },
 ];
- 
+
+const Modal = ({ item, onClose }) => (
+  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ background: '#1e293b', borderRadius: 16, padding: 32, maxWidth: 400, width: '90%', position: 'relative' }}>
+      <button onClick={onClose} style={{ position: 'absolute', top: 12, right: 16, background: 'none', color: '#94a3b8', fontSize: 20, cursor: 'pointer' }}>✕</button>
+      <h3 style={{ color: '#f1f5f9', marginBottom: 16 }}>{item.notice_title}</h3>
+      {item.image_url ? (
+        <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 10, marginBottom: 16, objectFit: 'cover', maxHeight: 200 }} />
+      ) : (
+        <div style={{ background: '#334155', borderRadius: 10, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', marginBottom: 16 }}>ไม่มีรูปภาพ</div>
+      )}
+      <p style={{ color: '#94a3b8', fontSize: 14 }}>📍 สถานที่: <span style={{ color: '#e2e8f0' }}>ID {item.place_id}</span></p>
+    </div>
+  </div>
+);
+
 export default function HomePage() {
   const router = useRouter();
   const boardRef = useRef(null);
@@ -75,7 +90,8 @@ export default function HomePage() {
   const [userRole, setUserRole] = useState(null);
   const [items, setItems] = useState([]);
   const [loadingItems, setLoadingItems] = useState(true);
- 
+  const [selectedItem, setSelectedItem] = useState(null);
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem('username');
     const role = localStorage.getItem('role');
@@ -85,7 +101,7 @@ export default function HomePage() {
     }
     fetchRecentItems();
   }, []);
- 
+
   const fetchRecentItems = async () => {
     try {
       const data = await itemService.getAllItems();
@@ -96,11 +112,11 @@ export default function HomePage() {
       setLoadingItems(false);
     }
   };
- 
+
   const scrollToBoard = () => {
     boardRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
- 
+
   const getStatusBadge = (statusId) => {
     if (statusId == 1) return (
       <span style={s.badgeLost}>
@@ -121,11 +137,14 @@ export default function HomePage() {
       </span>
     );
     return <span style={s.badgeDefault}>ไม่ทราบสถานะ</span>;
+
+
   };
- 
+
   return (
     <div style={s.page}>
- 
+      {selectedItem && <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />}
+
       {/* ── Ambient background ── */}
       <div style={s.bgAmbient} aria-hidden="true">
         <div style={s.bgBlob1} />
@@ -133,7 +152,7 @@ export default function HomePage() {
         <div style={s.bgBlob3} />
         <div style={s.bgGrid} />
       </div>
- 
+
       {/* ── HERO ── */}
       <section style={s.hero}>
         <div style={s.heroInner}>
@@ -141,7 +160,7 @@ export default function HomePage() {
             <span style={s.heroBadgeDot} />
             ระบบออนไลน์
           </div>
- 
+
           {username ? (
             <>
               <h1 style={s.heroTitle}>ยินดีต้อนรับกลับมา</h1>
@@ -158,11 +177,11 @@ export default function HomePage() {
               <h1 style={{ ...s.heroTitle, ...s.heroTitleAccent }}>ของหาย &amp; ของเจอ</h1>
             </>
           )}
- 
+
           <p style={s.heroSubtitle}>
             แจ้งของหาย · ประกาศของที่เจอ · ติดตามสถานะแบบเรียลไทม์
           </p>
- 
+
           <div style={s.heroActions}>
             <button onClick={scrollToBoard} style={s.btnGhost}>
               ทีมงานของเรา
@@ -172,7 +191,7 @@ export default function HomePage() {
             </button>
           </div>
         </div>
- 
+
         <div style={s.floatingStats}>
           <div style={s.statCard}>
             <span style={s.statNum}>{items.length}</span>
@@ -184,7 +203,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
- 
+
       {/* ── ADMIN ACTIONS ── */}
       {username && userRole === '1' && (
         <section style={s.section}>
@@ -216,7 +235,7 @@ export default function HomePage() {
           </div>
         </section>
       )}
- 
+
       {/* ── USER CTA ── */}
       {username && userRole === '2' && (
         <section style={{ ...s.section, paddingTop: 0 }}>
@@ -239,7 +258,7 @@ export default function HomePage() {
           </div>
         </section>
       )}
- 
+
       {/* ── RECENT ITEMS ── */}
       <section style={s.section}>
         <div style={s.container}>
@@ -254,7 +273,7 @@ export default function HomePage() {
                 Live
               </div>
             </div>
- 
+
             {loadingItems ? (
               <div style={s.loadingWrap}>
                 {[1, 2, 3].map((i) => <div key={i} style={s.skeleton} />)}
@@ -282,14 +301,12 @@ export default function HomePage() {
                         <td style={s.td}>{item.description || '-'}</td>
                         <td style={s.td}>{getStatusBadge(item.notice_status_id)}</td>
                         <td style={{ ...s.td, textAlign: 'center' }}>
-                          <div style={s.placeImgWrap}>
-                            <img
-                              src={`/places/place-${item.place_id}.jpg`}
-                              alt="Location"
-                              style={s.placeImg}
-                              onError={(e) => { e.target.src = 'https://via.placeholder.com/80/1e293b/475569?text=loc'; }}
-                            />
-                          </div>
+                          <button
+                            onClick={() => setSelectedItem(item)}
+                            style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: '#818cf8', padding: '6px 14px', borderRadius: 100, fontSize: 12, cursor: 'pointer' }}
+                          >
+                            📍 รูปภาพสิ่งของ
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -300,7 +317,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
- 
+
       {/* ── EXECUTIVE BOARD ── */}
       <section ref={boardRef} style={{ ...s.section, paddingBottom: '120px' }}>
         <div style={s.container}>
@@ -309,7 +326,7 @@ export default function HomePage() {
             <h2 style={s.boardTitle}>Lost &amp; Found Leadership</h2>
             <p style={s.boardSubtitle}>ทีมงานผู้อยู่เบื้องหลังระบบที่ไว้วางใจได้</p>
           </div>
- 
+
           {/* Featured CEO */}
           <div style={s.ceoWrap}>
             {execs.filter((e) => e.featured).map((exec) => (
@@ -338,7 +355,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
- 
+
           {/* Team grid */}
           <div style={s.teamGrid}>
             {execs.filter((e) => !e.featured).map((exec) => (
@@ -372,7 +389,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
- 
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -406,9 +423,9 @@ export default function HomePage() {
     </div>
   );
 }
- 
+
 // ── STYLES ────────────────────────────────────────────────────────────────────
- 
+
 const s = {
   page: {
     fontFamily: "'Prompt', sans-serif",
