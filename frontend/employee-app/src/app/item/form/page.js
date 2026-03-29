@@ -1,163 +1,104 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import itemService from '../../../services/itemService';
-import categoryService from '../../../services/categoryService';
 
-export default function ItemForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id');
-
-  const [formData, setFormData] = useState({
-    notice_title: '',
-    notice_type_id: '',
-    place_id: 1,
-    user_id: 1,
-    notice_status_id: 1
-  });
-  const [categories, setCategories] = useState([]);
+export default function ItemReport() {
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchItems = async () => {
       try {
-        setLoading(true);
-
-        const catRes = await categoryService.getCategories();
-        const catList = catRes?.success ? catRes.data : [];
-        setCategories(catList);
-
-        if (id) {
-          const item = await itemService.getItemById(id);
-          setFormData({
-            notice_title:     item.notice_title     || '',
-            notice_type_id:   item.notice_type_id   || (catList[0]?.id ?? ''),
-            place_id:         item.place_id         || 1,
-            user_id:          item.user_id          || 1,
-            notice_status_id: item.notice_status_id || 1
-          });
-        } else {
-          if (catList.length > 0) {
-            setFormData(prev => ({ ...prev, notice_type_id: catList[0].id }));
-          }
-        }
-      } catch (err) {
-        setError('ไม่สามารถโหลดข้อมูลได้ กรุณาตรวจสอบการเชื่อมต่อ');
-        console.error(err);
+        const data = await itemService.getAllItems();
+        setItems(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching items:', error);
       } finally {
         setLoading(false);
       }
     };
-    loadData();
-  }, [id]);
+    fetchItems();
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setSaving(true);
-      if (id) await itemService.updateItem(id, formData);
-      else    await itemService.createItem(formData);
-      alert('บันทึกสำเร็จ!');
-      router.push('/item');
-    } catch (err) {
-      alert('เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่');
-      console.error(err);
-    } finally {
-      setSaving(false);
-    }
+  const statusLabel = (id) => {
+    if (id == 1) return 'กำลังตามหา';
+    if (id == 2) return 'พบของแล้ว';
+    if (id == 3) return 'คืนเจ้าของแล้ว';
+    return 'ไม่ทราบสถานะ';
   };
 
+  const countByStatus = (statusId) => items.filter(i => i.notice_status_id == statusId).length;
+
   if (loading) return <div style={{ padding: '20px' }}>กำลังโหลดข้อมูล...</div>;
-  if (error)   return <div style={{ padding: '20px', color: 'red' }}>{error}</div>;
+
+  const statuses = [
+    { id: 1, label: 'กำลังตามหา',    color: '#f44336' },
+    { id: 2, label: 'พบของแล้ว',      color: '#ff9800' },
+    { id: 3, label: 'คืนเจ้าของแล้ว', color: '#4CAF50' },
+  ];
 
   return (
-    <div style={{ maxWidth: '500px', backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
-      <h2>{id ? '🛠️ แก้ไขรายการและสถานะ' : 
-      ( <> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-paper" viewBox="0 0 16 16">
-  <path d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267zm13 .566v5.734l-4.778-2.867zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083zM1 13.116V7.383l4.778 2.867L1 13.117Z"/>
-       </svg>
-       แจ้งรายการใหม่</>)} </h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+      <h2>รายงานสรุปรายการแจ้งของหาย</h2>
 
-        <div>
-          <label>หัวข้อที่แจ้ง:</label>
-          <input
-            type="text"
-            value={formData.notice_title}
-            onChange={e => setFormData({...formData, notice_title: e.target.value})}
-            required
-            style={inputStyle}
-            placeholder="เช่น กระเป๋าสีดำ, กุญแจรถ"
-          />
+      <div style={{ display: 'flex', gap: '20px', marginBottom: '30px', flexWrap: 'wrap' }}>
+        <div style={cardStyle('#2196F3')}>
+          <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{items.length}</div>
+          <div>รายการทั้งหมด</div>
         </div>
-
-        <div>
-          <label>ประเภทสิ่งของ (หมวดหมู่):</label>
-          {categories.length > 0 ? (
-            <select
-              value={formData.notice_type_id}
-              onChange={e => setFormData({...formData, notice_type_id: e.target.value})}
-              style={inputStyle}
-            >
-              {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.notice_type_name}</option>
-              ))}
-            </select>
-          ) : (
-            <div style={{ padding: '8px', color: '#888', border: '1px solid #ccc', borderRadius: '4px', marginTop: '5px' }}>
-              ยังไม่มีหมวดหมู่ (รอแบงค์เพิ่มข้อมูล)
-            </div>
-          )}
-        </div>
-
-        <div>
-          <label>รหัสสถานที่ (รอหนึ่งทำ Dropdown):</label>
-          <input
-            type="number"
-            value={formData.place_id}
-            onChange={e => setFormData({...formData, place_id: e.target.value})}
-            required
-            min="1"
-            style={inputStyle}
-          />
-        </div>
-
-        {id && (
-          <div style={{ padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffeeba', borderRadius: '5px' }}>
-            <label style={{ fontWeight: 'bold' }}>📢 อัปเดตสถานะ:</label>
-            <select
-              value={formData.notice_status_id}
-              onChange={e => setFormData({...formData, notice_status_id: e.target.value})}
-              style={inputStyle}
-            >
-              <option value={1}>🚨 กำลังตามหา (แจ้งหาย)</option>
-              <option value={2}>✅ พบของแล้ว (แจ้งเจอ)</option>
-              <option value={3}>🎉 ส่งคืนเจ้าของสำเร็จ</option>
-            </select>
+        {statuses.map(s => (
+          <div key={s.id} style={cardStyle(s.color)}>
+            <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{countByStatus(s.id)}</div>
+            <div>{s.label}</div>
           </div>
-        )}
+        ))}
+      </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          style={{ padding: '10px', backgroundColor: saving ? '#90caf9' : '#2196F3', color: 'white', border: 'none', borderRadius: '4px', cursor: saving ? 'not-allowed' : 'pointer' }}
-        >
-          {saving ? 'กำลังบันทึก...' : 'บันทึกข้อมูล'}
-        </button>
+      <h3>รายการทั้งหมด</h3>
+      <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', backgroundColor: 'white' }}>
+        <thead>
+          <tr style={{ backgroundColor: '#f2f2f2' }}>
+            <th style={{ padding: '10px' }}>ID</th>
+            <th style={{ padding: '10px' }}>หัวข้อ</th>
+            <th style={{ padding: '10px' }}>รหัสหมวดหมู่</th>
+            <th style={{ padding: '10px' }}>รหัสสถานที่</th>
+            <th style={{ padding: '10px' }}>สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.length > 0 ? items.map((item) => (
+            <tr key={item.notice_id}>
+              <td style={{ padding: '10px' }}>{item.notice_id}</td>
+              <td style={{ padding: '10px' }}>{item.notice_title}</td>
+              <td style={{ padding: '10px' }}>{item.notice_type_id}</td>
+              <td style={{ padding: '10px' }}>{item.place_id}</td>
+              <td style={{ padding: '10px', fontWeight: 'bold' }}>{statusLabel(item.notice_status_id)}</td>
+            </tr>
+          )) : (
+            <tr>
+              <td colSpan="5" style={{ padding: '20px' }}>ไม่มีข้อมูล</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
 
-        <button
-          type="button"
-          onClick={() => router.push('/item')}
-          style={{ padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
-        >
-          ย้อนกลับ
-        </button>
-      </form>
+      <div style={{ marginTop: '20px' }}>
+        <Link href="/item">
+          <button style={{ padding: '10px 20px', backgroundColor: '#607d8b', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+           ← กลับหน้าหลัก
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
 
-const inputStyle = { width: '100%', padding: '8px', marginTop: '5px', boxSizing: 'border-box', borderRadius: '4px', border: '1px solid #ccc' };
+const cardStyle = (bg) => ({
+  backgroundColor: bg,
+  color: 'white',
+  padding: '20px 30px',
+  borderRadius: '8px',
+  textAlign: 'center',
+  minWidth: '140px'
+});

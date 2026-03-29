@@ -30,16 +30,16 @@ export default function EditUser() {
     e.preventDefault();
     try {
       await userService.updateUser(id, formData);
-      alert('✅ อัปเดตข้อมูลผู้ใช้สำเร็จ!');
+      alert('อัปเดตข้อมูลผู้ใช้สำเร็จ!');
       router.push('/user');
     } catch (error) {
-      alert('❌ เกิดข้อผิดพลาดในการอัปเดต');
+      alert('เกิดข้อผิดพลาดในการอัปเดต');
     }
   };
 
   return (
     <div style={{ padding: '30px', maxWidth: '400px', margin: '0 auto', backgroundColor: 'white', borderRadius: '8px' }}>
-      <h2>✏️ แก้ไขข้อมูลผู้ใช้งาน</h2>
+      <h2>แก้ไขข้อมูลผู้ใช้งาน</h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <div><label>ชื่อผู้ใช้งาน:</label><input type="text" name="username" value={formData.username} onChange={e => setFormData({...formData, username: e.target.value})} required style={inputStyle} /></div>
         <div><label>อีเมล:</label><input type="email" name="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} required style={inputStyle} /></div>

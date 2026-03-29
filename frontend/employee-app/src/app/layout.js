@@ -65,12 +65,6 @@ export default function RootLayout({ children }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{
-              width: 36, height: 36, borderRadius: 10,
-              background: 'linear-gradient(135deg, #1e40af, #3b82f6)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 18, boxShadow: '0 2px 8px rgba(59,130,246,0.35)',
-            }}>🔍</div>
             <div>
               <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', lineHeight: 1.1, fontFamily: "'Prompt', sans-serif" }}>ของหาย</div>
               <div style={{ fontSize: 10, color: '#64748b', letterSpacing: '0.1em', fontWeight: 500 }}>LOST & FOUND</div>
@@ -144,14 +138,13 @@ export default function RootLayout({ children }) {
             }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg, #1e40af, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🔍</div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9', fontFamily: "'Prompt', sans-serif" }}>ระบบของหาย</div>
                     <div style={{ fontSize: 10, letterSpacing: '0.1em', color: '#64748b' }}>LOST & FOUND SYSTEM</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 13, lineHeight: 1.8, color: '#64748b', maxWidth: 260 }}>
-                  ระบบจัดการของหายและของเจอ เพื่ออำนวยความสะดวกในการติดตามและรับคืนทรัพย์สิน
+                 ระบบจัดการของหายและของเจอ เพื่ออำนวยความสะดวกในการติดตามและรับคืนทรัพย์สิน
                 </p>
               </div>
 
@@ -168,9 +161,9 @@ export default function RootLayout({ children }) {
                 <h4 style={{ fontSize: 12, fontWeight: 700, color: '#e2e8f0', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 18 }}>ติดต่อเรา</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {[
-                    { icon: '📍', label: 'ที่ตั้ง', value: 'ในใจเสมอมา' },
-                    { icon: '📞', label: 'โทรศัพท์', value: '001-888888 ต่อ 1234' },
-                    { icon: '🕐', label: 'เวลาทำการ', value: 'ไม่มีกำหนด' },
+                    { icon: '', label: 'ที่ตั้ง', value: 'ในใจเสมอมา' },
+                    { icon: '', label: 'โทรศัพท์', value: '001-888888 ต่อ 1234' },
+                    { icon: '', label: 'เวลาทำการ', value: 'ไม่มีกำหนด' },
                   ].map(({ icon, label, value }) => (
                     <div key={label} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                       <span style={{ fontSize: 14, marginTop: 2 }}>{icon}</span>

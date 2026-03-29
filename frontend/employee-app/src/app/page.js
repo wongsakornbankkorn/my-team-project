@@ -49,7 +49,7 @@ const adminItems = [
 const Modal = ({ item, onClose }) => (
   <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={onClose}>
     <div style={{ background: '#fff', borderRadius: 20, padding: 32, maxWidth: 420, width: '90%', position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
-      <button onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: '#f1f5f9', border: 'none', color: '#64748b', width: 30, height: 30, borderRadius: '50%', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+      <button onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: '#f1f5f9', border: 'none', color: '#64748b', width: 30, height: 30, borderRadius: '50%', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></button>
       <h3 style={{ color: '#1e293b', marginBottom: 16, fontSize: 18, fontWeight: 700 }}>{item.notice_title}</h3>
       {item.image_url ? (
         <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 12, marginBottom: 16, objectFit: 'cover', maxHeight: 220 }} />
@@ -59,7 +59,7 @@ const Modal = ({ item, onClose }) => (
         </div>
       )}
       <p style={{ color: '#64748b', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
-        สถานที่: <span style={{ color: '#1e293b', fontWeight: 500 }}>ID {item.place_id}</span>
+       สถานที่: <span style={{ color: '#1e293b', fontWeight: 500 }}>ID {item.place_id}</span>
       </p>
     </div>
   </div>
@@ -125,7 +125,7 @@ export default function HomePage() {
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', padding: '6px 16px', borderRadius: 100, marginBottom: 28 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', display: 'inline-block', animation: 'livePulse 2s ease-in-out infinite' }} />
-            ระบบออนไลน์
+           ระบบออนไลน์
           </div>
 
           {username ? (
@@ -146,17 +146,17 @@ export default function HomePage() {
           )}
 
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', fontWeight: 300, lineHeight: 1.7, marginBottom: 36 }}>
-            แจ้งของหาย · ประกาศของที่เจอ · ติดตามสถานะแบบเรียลไทม์
+           แจ้งของหาย · ประกาศของที่เจอ · ติดตามสถานะแบบเรียลไทม์
           </p>
 
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             {!username && (
               <button onClick={() => router.push('/user/login')} style={{ padding: '12px 28px', borderRadius: 10, background: '#fff', color: '#1e40af', fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.2)' }}>
-                เริ่มต้นใช้งาน
+               เริ่มต้นใช้งาน
               </button>
             )}
             <button onClick={() => boardRef.current?.scrollIntoView({ behavior: 'smooth' })} style={{ padding: '12px 28px', borderRadius: 10, background: 'rgba(255,255,255,0.1)', color: '#fff', fontSize: 15, fontWeight: 500, border: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer' }}>
-              ทีมงานของเรา
+             ทีมงานของเรา
             </button>
           </div>
         </div>
@@ -194,7 +194,7 @@ export default function HomePage() {
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
                   <div style={{ width: 46, height: 46, borderRadius: 12, background: '#fff', border: `1.5px solid ${item.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.accent }}>
-                    {/* 👇 แก้ให้แสดงผล SVG ตามที่เราแก้กันไปครับ */}
+                    {/*  แก้ให้แสดงผล SVG ตามที่เราแก้กันไปครับ */}
                     {item.icon}
                   </div>
                   <div>

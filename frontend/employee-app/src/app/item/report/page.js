@@ -24,7 +24,7 @@ export default function ReportUnified() {
       try {
         const res = await axios.get('http://localhost:5000/api/categories');
 
-        // 🛡️ เพิ่มเกราะป้องกันตรงนี้! เช็คให้ชัวร์ว่าเป็น Array ก่อนเอาไปใช้
+        //  เพิ่มเกราะป้องกันตรงนี้! เช็คให้ชัวร์ว่าเป็น Array ก่อนเอาไปใช้
         if (Array.isArray(res.data)) {
           setCategories(res.data);
         } else if (res.data && Array.isArray(res.data.data)) {
@@ -69,10 +69,10 @@ export default function ReportUnified() {
       await axios.post('http://localhost:5000/api/items', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      alert('✅ บันทึกข้อมูลลงระบบสำเร็จ!');
+      alert('บันทึกข้อมูลลงระบบสำเร็จ!');
       router.push('/');
     } catch (error) {
-      alert('❌ เกิดข้อผิดพลาด กรุณาลองใหม่');
+      alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
       setIsLoading(false);
     }
   };
@@ -82,7 +82,7 @@ export default function ReportUnified() {
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)', width: '100%', maxWidth: '500px', borderTop: '5px solid #3B82F6' }}>
         <h2 style={{ textAlign: 'center', color: '#2c3e50', marginTop: 0 }}>  <> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-envelope-paper" viewBox="0 0 16 16">
   <path d="M4 0a2 2 0 0 0-2 2v1.133l-.941.502A2 2 0 0 0 0 5.4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.4a2 2 0 0 0-1.059-1.765L14 3.133V2a2 2 0 0 0-2-2zm10 4.267.47.25A1 1 0 0 1 15 5.4v.817l-1 .6zm-1 3.15-3.75 2.25L8 8.917l-1.25.75L3 7.417V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1zm-11-.6-1-.6V5.4a1 1 0 0 1 .53-.882L2 4.267zm13 .566v5.734l-4.778-2.867zm-.035 6.88A1 1 0 0 1 14 15H2a1 1 0 0 1-.965-.738L8 10.083zM1 13.116V7.383l4.778 2.867L1 13.117Z"/>
-       </svg> </>    ฟอร์มแจ้งข้อมูล</h2>
+       </svg> </>ฟอร์มแจ้งข้อมูล</h2>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
@@ -93,8 +93,8 @@ export default function ReportUnified() {
               value={formData.notice_status_id}
               onChange={e => setFormData({ ...formData, notice_status_id: e.target.value })}
             >
-              <option value="1">🔴 ฉันทำของหาย (กำลังตามหา)</option>
-              <option value="2">🟢 ฉันเก็บของได้ (ประกาศหาเจ้าของ)</option>
+              <option value="1">ฉันทำของหาย (กำลังตามหา)</option>
+              <option value="2">ฉันเก็บของได้ (ประกาศหาเจ้าของ)</option>
             </select>
           </div>
 
@@ -114,7 +114,7 @@ export default function ReportUnified() {
             >
               <option value="" disabled>-- กรุณาเลือกหมวดหมู่ --</option>
 
-              {/* 👇 สังเกตตรงวงเล็บ (cat, index) และ key={index} นะครับ นี่คือตัวแก้ Error! */}
+              {/*  สังเกตตรงวงเล็บ (cat, index) และ key={index} นะครับ นี่คือตัวแก้ Error! */}
               {Array.isArray(categories) && categories.length > 0 ? categories.map((cat, index) => (
                 <option key={index} value={cat.notice_type_id || cat.id}>
                   {cat.notice_type_name || cat.name}

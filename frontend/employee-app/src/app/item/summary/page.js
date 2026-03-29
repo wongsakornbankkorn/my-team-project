@@ -54,15 +54,15 @@ export default function ItemSummary() {
 
   return (
     <div style={{ padding: '30px', fontFamily: 'sans-serif', backgroundColor: 'white', borderRadius: '8px' }}>
-      <h2>📊 สรุปยอดการแจ้งหาย / เจอ แยกตามเดือน</h2>
+      <h2>สรุปยอดการแจ้งหาย / เจอ แยกตามเดือน</h2>
 
       {/* Summary cards */}
       <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
         {[
           { label: 'รายการทั้งหมด', value: totalAll,      color: '#2196F3' },
-          { label: '🚨 แจ้งหาย',    value: totalLost,     color: '#f44336' },
-          { label: '✅ แจ้งเจอ',    value: totalFound,    color: '#ff9800' },
-          { label: '🎉 คืนของแล้ว', value: totalReturned, color: '#4CAF50' },
+          { label: 'แจ้งหาย',    value: totalLost,     color: '#f44336' },
+          { label: 'แจ้งเจอ',    value: totalFound,    color: '#ff9800' },
+          { label: 'คืนของแล้ว', value: totalReturned, color: '#4CAF50' },
         ].map(c => (
           <div key={c.label} style={{ backgroundColor: c.color, color: 'white', padding: '16px 28px', borderRadius: '8px', textAlign: 'center', minWidth: '130px' }}>
             <div style={{ fontSize: '30px', fontWeight: 'bold' }}>{c.value}</div>
@@ -87,7 +87,7 @@ export default function ItemSummary() {
 
         {(filterYear || filterMonth) && (
           <button onClick={() => { setFilterYear(''); setFilterMonth(''); }} style={{ padding: '6px 12px', cursor: 'pointer', border: '1px solid #ccc', borderRadius: '4px' }}>
-            ล้างตัวกรอง
+           ล้างตัวกรอง
           </button>
         )}
       </div>
@@ -98,9 +98,9 @@ export default function ItemSummary() {
           <tr style={{ backgroundColor: '#f2f2f2' }}>
             <th style={{ padding: '12px' }}>เดือน</th>
             <th style={{ padding: '12px' }}>ปี (พ.ศ.)</th>
-            <th style={{ padding: '12px', color: '#f44336' }}>🚨 แจ้งหาย</th>
-            <th style={{ padding: '12px', color: '#ff9800' }}>✅ แจ้งเจอ</th>
-            <th style={{ padding: '12px', color: '#4CAF50' }}>🎉 คืนของแล้ว</th>
+            <th style={{ padding: '12px', color: '#f44336' }}>แจ้งหาย</th>
+            <th style={{ padding: '12px', color: '#ff9800' }}>แจ้งเจอ</th>
+            <th style={{ padding: '12px', color: '#4CAF50' }}>คืนของแล้ว</th>
             <th style={{ padding: '12px', fontWeight: 'bold' }}>รวม</th>
           </tr>
         </thead>
@@ -134,11 +134,11 @@ export default function ItemSummary() {
 
       <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
         <button onClick={() => window.print()} style={{ padding: '10px 20px', cursor: 'pointer', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '5px' }}>
-          🖨️ พิมพ์รายงาน
+          พิมพ์รายงาน
         </button>
         <Link href="/item">
           <button style={{ padding: '10px 20px', cursor: 'pointer', backgroundColor: '#607d8b', color: '#fff', border: 'none', borderRadius: '5px' }}>
-            ← กลับ
+           ← กลับ
           </button>
         </Link>
       </div>

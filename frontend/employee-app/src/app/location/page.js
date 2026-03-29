@@ -42,7 +42,7 @@ export default function LocationList() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h2>📍 จัดการสถานที่ (Location)</h2>
+      <h2>จัดการสถานที่ (Location)</h2>
 
       <div style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>
         <Link href="/location/form">
@@ -52,7 +52,7 @@ export default function LocationList() {
         </Link>
         <Link href="/location/report">
           <button style={{ padding: '10px 15px', backgroundColor: '#9c27b0', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-            📊 รายงาน
+            รายงาน
           </button>
         </Link>
       </div>

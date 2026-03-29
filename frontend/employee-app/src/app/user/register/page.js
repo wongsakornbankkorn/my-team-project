@@ -13,7 +13,7 @@ export default function Register() {
   });
   const [isLoading, setIsLoading] = useState(false);
   
-  // 👇 เพิ่ม State สำหรับเช็คสิทธิ์คนที่กำลังเปิดหน้านี้
+  //  เพิ่ม State สำหรับเช็คสิทธิ์คนที่กำลังเปิดหน้านี้
   const [currentUserRole, setCurrentUserRole] = useState(null);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Register() {
     setIsLoading(true);
     try {
       await authService.register(formData);
-      alert('🎉 สร้างบัญชีสำเร็จ!');
+      alert('สร้างบัญชีสำเร็จ!');
       
       // ถ้าแอดมินเป็นคนสร้าง ให้เด้งกลับไปหน้าตาราง / ถ้าคนนอกสร้าง ให้ไปหน้า login
       if (currentUserRole == '1') {
@@ -42,7 +42,7 @@ export default function Register() {
       
     } catch (error) {
       console.error('Error registering:', error);
-      alert('❌ เกิดข้อผิดพลาด (ชื่อผู้ใช้นี้อาจมีคนใช้แล้ว หรือระบบมีปัญหา)');
+      alert('เกิดข้อผิดพลาด (ชื่อผู้ใช้นี้อาจมีคนใช้แล้ว หรือระบบมีปัญหา)');
       setIsLoading(false);
     }
   };
@@ -75,7 +75,7 @@ export default function Register() {
             />
           </div>
 
-          {/* 🛡️ ความลับอยู่ตรงนี้! ถ้า currentUserRole == '1' (แอดมิน) ถึงจะโชว์ช่องให้เลือก */}
+          {/*  ความลับอยู่ตรงนี้! ถ้า currentUserRole == '1' (แอดมิน) ถึงจะโชว์ช่องให้เลือก */}
           {currentUserRole == '1' && (
             <div style={styles.inputGroup}>
               <label style={styles.labelStyle}>ระดับผู้ใช้งาน (Role)</label>
@@ -87,7 +87,7 @@ export default function Register() {
           )}
 
           <button type="submit" disabled={isLoading} style={isLoading ? styles.buttonDisabled : styles.buttonStyle}>
-            {isLoading ? '⏳ กำลังบันทึกข้อมูล...' : 'ยืนยันการสมัครสมาชิก'}
+            {isLoading ? 'กำลังบันทึกข้อมูล...' : 'ยืนยันการสมัครสมาชิก'}
           </button>
 
         </form>
@@ -96,9 +96,9 @@ export default function Register() {
         {currentUserRole != '1' && (
           <div style={styles.footerStyle}>
             <p style={{ margin: 0, color: '#718096' }}>
-              มีบัญชีผู้ใช้อยู่แล้วใช่ไหม?{' '}
+             มีบัญชีผู้ใช้อยู่แล้วใช่ไหม?{' '}
               <span style={styles.linkStyle} onClick={() => router.push('/user/login')}>
-                เข้าสู่ระบบ
+               เข้าสู่ระบบ
               </span>
             </p>
           </div>
@@ -109,7 +109,7 @@ export default function Register() {
   );
 }
 
-// 🎨 --- โซนตกแต่งความสวยงาม (Styles) ---
+//  --- โซนตกแต่งความสวยงาม (Styles) ---
 const styles = {
   pageContainer: { display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', fontFamily: "'Prompt', 'Segoe UI', sans-serif" },
   loginCard: { backgroundColor: '#ffffff', padding: '40px 50px', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08)', width: '100%', maxWidth: '420px', border: '1px solid #f0f4f8' },
