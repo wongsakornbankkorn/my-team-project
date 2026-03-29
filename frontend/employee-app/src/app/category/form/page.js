@@ -57,7 +57,7 @@ export default function CategoryForm() {
 
   return (
     <div style={{ padding: '30px', fontFamily: 'sans-serif', maxWidth: '500px' }}>
-      <h2>{id ? '✏️ แก้ไขหมวดหมู่' : '➕ เพิ่มหมวดหมู่ใหม่'}</h2>
+      <h2>{id ? '✏️ แก้ไขหมวดหมู่' : 'เพิ่มหมวดหมู่ใหม่'}</h2>
       
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <div>

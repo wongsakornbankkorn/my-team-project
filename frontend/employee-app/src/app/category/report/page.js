@@ -43,7 +43,7 @@ export default function CategoryReport() {
 
   return (
     <div style={{ padding: '30px', fontFamily: 'sans-serif' }}>
-      <h2>📊 รายงานแจ้งหาย/เจอ แยกตามประเภทสิ่งของ</h2>
+      <h2>รายงานแจ้งหาย/เจอ แยกตามประเภทสิ่งของ</h2>
       <p style={{ color: '#666' }}>สรุปสถิติจำนวนสิ่งของที่แจ้งในแต่ละหมวดหมู่</p>
 
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', textAlign: 'center' }}>
@@ -70,7 +70,7 @@ export default function CategoryReport() {
       </table>
 
       <button onClick={() => window.print()} style={{ marginTop: '20px', padding: '10px 20px', cursor: 'pointer', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '5px' }}>
-        🖨️ พิมพ์รายงาน
+         พิมพ์รายงาน
       </button>
     </div>
   );

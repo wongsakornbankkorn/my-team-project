@@ -15,7 +15,7 @@ app.use('/api/auth',       require('./routes/authRoutes'))
 app.use('/api/locations',  require('./routes/locationRoutes'))
 
 sequelize.sync({ alter: true })
-  .then(() => console.log('Database synced & Tables updated! 🚀'))
+  .then(() => console.log('Database synced & Tables updated! '))
   .catch(err => console.error('Sync error:', err))
 
 const PORT = process.env.PORT || 5000

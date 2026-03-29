@@ -42,7 +42,7 @@ export default function CategoryList() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h2>📂 จัดการประเภทการแจ้ง (Category)</h2>
+      <h2> จัดการประเภทการแจ้ง (Category)</h2>
       
       <Link href="/category/form">
         <button style={{ marginBottom: '15px', padding: '10px 15px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
