@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import itemService from '../services/itemService';
 
 const execs = [
-  { name: 'คุณแบงค์', title: 'Chief Executive Officer', subtitle: 'ผู้ก่อตั้ง · ดูแลระบบหมวดหมู่', src: '/bank-profile.jpg', fallback: 'CEO', accent: '#f59e0b', role: 'CEO', featured: true },
+  { name: 'คุณแบงค์', title: 'Chief Executive Officer', subtitle: 'ผู้ก่อตั้ง · ดูแลระบบหมวดหมู่', src: '/bank-profile.jpg', fallback: 'CEO', accent: '#f59e0b', role: 'CEO' },
   { name: 'คุณปัน', title: 'Chief Technology Officer', subtitle: 'ดูแลระบบสมาชิกและโครงสร้างพื้นฐาน', src: '/pun-profile.jpg', fallback: 'CTO', accent: '#3b82f6', role: 'CTO' },
   { name: 'คุณถั่วพู', title: 'Chief Operating Officer', subtitle: 'ดูแลระบบการแจ้งและปฏิบัติการ', src: '/thwphu-profile.jpg', fallback: 'COO', accent: '#ef4444', role: 'COO' },
   { name: 'คุณหนึ่ง', title: 'Chief Financial Officer', subtitle: 'ดูแลระบบสถานที่และทรัพยากร', src: '/nung-profile.jpg', fallback: 'CFO', accent: '#22c55e', role: 'CFO' },
 ];
 
 const adminItems = [
+<<<<<<< HEAD
   { icon: (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-megaphone" viewBox="0 0 16 16">
   <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 75 75 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0m-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233q.27.015.537.036c2.568.189 5.093.744 7.463 1.993zm-9 6.215v-4.13a95 95 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A61 61 0 0 1 4 10.065m-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68 68 0 0 0-1.722-.082z"/>
 </svg>)
@@ -33,6 +34,12 @@ const adminItems = [
     , label: 'ผู้ใช้งาน', desc: 'จัดการสมาชิกในระบบ', path: '/user', accent: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe' },
 
 
+=======
+  { svgPath: 'M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM4 5h16M9 3h6', label: 'แจ้งหาย / เจอ', desc: 'จัดการรายการของหายทั้งหมด', path: '/item', accent: '#ef4444', bg: '#fef2f2', border: '#fecaca' },
+  { svgPath: 'M3 7h18M3 12h18M3 17h18', label: 'หมวดหมู่', desc: 'จัดการประเภทของสิ่งของ', path: '/category', accent: '#f59e0b', bg: '#fffbeb', border: '#fde68a' },
+  { svgPath: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z', label: 'สถานที่', desc: 'จัดการตำแหน่งและอาคาร', path: '/location', accent: '#22c55e', bg: '#f0fdf4', border: '#bbf7d0' },
+  { svgPath: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', label: 'ผู้ใช้งาน', desc: 'จัดการสมาชิกในระบบ', path: '/user', accent: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe' },
+>>>>>>> 185892cac4e76132a9c27477bde3645775c335e9
 ];
 
 const Modal = ({ item, onClose }) => (
@@ -44,12 +51,19 @@ const Modal = ({ item, onClose }) => (
         <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 12, marginBottom: 16, objectFit: 'cover', maxHeight: 220 }} />
       ) : (
         <div style={{ background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 12, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', marginBottom: 16, flexDirection: 'column', gap: 6 }}>
+<<<<<<< HEAD
           <span style={{ fontSize: 28 }}></span>
+=======
+>>>>>>> 185892cac4e76132a9c27477bde3645775c335e9
           <span style={{ fontSize: 13 }}>ไม่มีรูปภาพ</span>
         </div>
       )}
       <p style={{ color: '#64748b', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
+<<<<<<< HEAD
         <span></span> สถานที่: <span style={{ color: '#1e293b', fontWeight: 500 }}>ID {item.place_id}</span>
+=======
+        สถานที่: <span style={{ color: '#1e293b', fontWeight: 500 }}>ID {item.place_id}</span>
+>>>>>>> 185892cac4e76132a9c27477bde3645775c335e9
       </p>
     </div>
   </div>
@@ -109,12 +123,10 @@ export default function HomePage() {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Decorative circles */}
         <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 700, margin: '0 auto' }}>
-          {/* Live badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', padding: '6px 16px', borderRadius: 100, marginBottom: 28 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', display: 'inline-block', animation: 'livePulse 2s ease-in-out infinite' }} />
             ระบบออนไลน์
@@ -126,7 +138,11 @@ export default function HomePage() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
                 <span style={{ fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 700, color: '#fff' }}>{username}</span>
                 <span style={{ fontSize: 13, fontWeight: 600, padding: '5px 14px', borderRadius: 100, background: userRole === '1' ? 'rgba(245,158,11,0.2)' : 'rgba(99,102,241,0.2)', color: userRole === '1' ? '#fbbf24' : '#a5b4fc', border: userRole === '1' ? '1px solid rgba(245,158,11,0.35)' : '1px solid rgba(99,102,241,0.35)' }}>
+<<<<<<< HEAD
                   {userRole === '1' ? ' แอดมิน' : ' ผู้ใช้งาน'}
+=======
+                  {userRole === '1' ? 'แอดมิน' : 'ผู้ใช้งาน'}
+>>>>>>> 185892cac4e76132a9c27477bde3645775c335e9
                 </span>
               </div>
             </>
@@ -144,7 +160,7 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             {!username && (
               <button onClick={() => router.push('/user/login')} style={{ padding: '12px 28px', borderRadius: 10, background: '#fff', color: '#1e40af', fontSize: 15, fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.2)' }}>
-                เริ่มต้นใช้งาน →
+                เริ่มต้นใช้งาน
               </button>
             )}
             <button onClick={() => boardRef.current?.scrollIntoView({ behavior: 'smooth' })} style={{ padding: '12px 28px', borderRadius: 10, background: 'rgba(255,255,255,0.1)', color: '#fff', fontSize: 15, fontWeight: 500, border: '1px solid rgba(255,255,255,0.2)', cursor: 'pointer' }}>
@@ -153,7 +169,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Stats strip */}
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 56, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
           {[
             { num: items.length, label: 'รายการในระบบ', color: '#60a5fa' },
@@ -167,9 +182,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
-      {/* Wave divider */}
-      <div style={{ background: 'linear-gradient(to bottom right, #0369a1, #f8fafc)', height: 48, clipPath: 'ellipse(55% 100% at 50% 0%)' }} />
 
       {/* ── ADMIN PANEL ── */}
       {username && userRole === '1' && (
@@ -189,7 +201,11 @@ export default function HomePage() {
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = `0 8px 24px ${item.accent}22`; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
-                  <div style={{ width: 46, height: 46, borderRadius: 12, background: '#fff', border: `1.5px solid ${item.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>{item.icon}</div>
+                  <div style={{ width: 46, height: 46, borderRadius: 12, background: '#fff', border: `1.5px solid ${item.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={item.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={item.svgPath} />
+                    </svg>
+                  </div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: '#1e293b' }}>{item.label}</div>
                     <div style={{ fontSize: 12, color: '#64748b', marginTop: 3 }}>{item.desc}</div>
@@ -213,13 +229,13 @@ export default function HomePage() {
               onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <div style={{ width: 52, height: 52, borderRadius: 14, background: 'linear-gradient(135deg, #1e40af, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
               </div>
               <div>
                 <div style={{ fontSize: 17, fontWeight: 700, color: '#1e293b' }}>แจ้งของหาย / ประกาศของที่เก็บได้</div>
                 <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>คลิกเพื่อเพิ่มรายการใหม่เข้าสู่ระบบ</div>
               </div>
-              <svg style={{ marginLeft: 'auto', color: '#94a3b8' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              <svg style={{ marginLeft: 'auto', color: '#94a3b8' }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </button>
           </div>
         </section>
@@ -229,7 +245,6 @@ export default function HomePage() {
       <section style={{ padding: '40px 24px 56px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 20, overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.05)' }}>
-            {/* Table header */}
             <div style={{ padding: '24px 28px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
               <div>
                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: '#6366f1', textTransform: 'uppercase', marginBottom: 4 }}>ฟีดสด</p>
@@ -249,7 +264,6 @@ export default function HomePage() {
               </div>
             ) : items.length === 0 ? (
               <div style={{ padding: 60, textAlign: 'center', color: '#94a3b8' }}>
-                <div style={{ fontSize: 40, marginBottom: 12 }}>📭</div>
                 <p style={{ fontSize: 15 }}>ยังไม่มีรายการในระบบ</p>
               </div>
             ) : (
@@ -257,8 +271,8 @@ export default function HomePage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ background: '#f8fafc' }}>
-                      {['หัวข้อรายการ', 'รายละเอียด', 'สถานะ', 'รูปภาพสิ่งของ'].map((h, i) => (
-                        <th key={h} style={{ padding: '12px 20px', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: i === 3 ? 'center' : 'left', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>{h}</th>
+                      {['หัวข้อรายการ', 'สถานะ', 'รูปภาพสิ่งของ'].map((h, i) => (
+                        <th key={h} style={{ padding: '12px 20px', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: i === 2 ? 'center' : 'left', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -269,7 +283,6 @@ export default function HomePage() {
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         <td style={{ padding: '16px 20px', fontSize: 14, fontWeight: 600, color: '#1e293b' }}>{item.notice_title}</td>
-                        <td style={{ padding: '16px 20px', fontSize: 13, color: '#64748b', maxWidth: 220 }}><span style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{item.description || '–'}</span></td>
                         <td style={{ padding: '16px 20px' }}>{getStatusBadge(item.notice_status_id)}</td>
                         <td style={{ padding: '16px 20px', textAlign: 'center' }}>
                           <button
@@ -277,7 +290,11 @@ export default function HomePage() {
                             style={{ background: '#eff6ff', border: '1px solid #bfdbfe', color: '#1d4ed8', padding: '6px 14px', borderRadius: 100, fontSize: 12, cursor: 'pointer', fontWeight: 500, transition: 'all 0.15s' }}
                             onMouseEnter={e => { e.currentTarget.style.background = '#dbeafe'; }}
                             onMouseLeave={e => { e.currentTarget.style.background = '#eff6ff'; }}
+<<<<<<< HEAD
                           > ดูรูปภาพ</button>
+=======
+                          >ดูรูปภาพ</button>
+>>>>>>> 185892cac4e76132a9c27477bde3645775c335e9
                         </td>
                       </tr>
                     ))}
@@ -298,38 +315,21 @@ export default function HomePage() {
             <p style={{ fontSize: 15, color: '#64748b', fontWeight: 300 }}>ทีมงานผู้อยู่เบื้องหลังระบบที่ไว้วางใจได้</p>
           </div>
 
-          {/* CEO Featured */}
-          {execs.filter(e => e.featured).map(exec => (
-            <div key={exec.name} style={{ display: 'flex', alignItems: 'center', gap: 48, padding: '40px 48px', borderRadius: 24, background: 'linear-gradient(135deg, #fffbeb, #fff)', border: `1.5px solid ${exec.accent}30`, marginBottom: 40, flexWrap: 'wrap', boxShadow: '0 4px 24px rgba(245,158,11,0.08)' }}>
-              <div style={{ position: 'relative', flexShrink: 0, margin: '0 auto' }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: exec.accent, position: 'absolute', top: 8, right: 8, zIndex: 2, boxShadow: `0 0 0 3px ${exec.accent}30` }} />
-                <img src={exec.src} alt={exec.name} style={{ width: 160, height: 190, borderRadius: 20, objectFit: 'cover', objectPosition: 'top', border: `3px solid ${exec.accent}50`, display: 'block', boxShadow: '0 8px 28px rgba(0,0,0,0.12)' }} onError={e => { e.target.src = `https://via.placeholder.com/160/f8fafc/94a3b8?text=${exec.fallback}`; }} />
-                <div style={{ position: 'absolute', bottom: -10, left: '50%', transform: 'translateX(-50%)', background: exec.accent, color: '#fff', fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', padding: '4px 14px', borderRadius: 100, whiteSpace: 'nowrap' }}>{exec.role}</div>
-              </div>
-              <div style={{ flex: 1, minWidth: 240 }}>
-                <div style={{ width: 32, height: 3, borderRadius: 2, background: exec.accent, marginBottom: 14 }} />
-                <h3 style={{ fontSize: 30, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>{exec.name}</h3>
-                <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: exec.accent, marginBottom: 10 }}>{exec.title}</p>
-                <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.7, marginBottom: 18 }}>{exec.subtitle}</p>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {['ผู้ก่อตั้ง', 'ผู้นำองค์กร'].map(t => (
-                    <span key={t} style={{ fontSize: 12, fontWeight: 600, padding: '4px 12px', borderRadius: 100, border: `1px solid ${exec.accent}40`, color: exec.accent, background: `${exec.accent}10` }}>{t}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Team grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
-            {execs.filter(e => !e.featured).map(exec => (
+          {/* All 4 members in same grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
+            {execs.map(exec => (
               <div key={exec.name}
                 style={{ padding: '36px 28px', borderRadius: 20, textAlign: 'center', background: '#fff', border: '1.5px solid #f1f5f9', transition: 'all 0.3s', boxShadow: '0 2px 10px rgba(0,0,0,0.04)' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = exec.accent + '60'; e.currentTarget.style.boxShadow = `0 12px 32px ${exec.accent}15`; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = exec.accent + '60'; e.currentTarget.style.boxShadow = `0 12px 32px ${exec.accent}18`; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = '#f1f5f9'; e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.04)'; }}
               >
                 <div style={{ position: 'relative', width: 110, height: 130, margin: '0 auto 20px' }}>
-                  <img src={exec.src} alt={exec.name} style={{ width: 110, height: 130, borderRadius: 16, objectFit: 'cover', objectPosition: 'top', display: 'block', border: `2px solid ${exec.accent}30`, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }} onError={e => { e.target.src = `https://via.placeholder.com/110/f8fafc/94a3b8?text=${exec.fallback}`; }} />
+                  <img
+                    src={exec.src}
+                    alt={exec.name}
+                    style={{ width: 110, height: 130, borderRadius: 16, objectFit: 'cover', objectPosition: 'top', display: 'block', border: `2px solid ${exec.accent}30`, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}
+                    onError={e => { e.target.src = `https://via.placeholder.com/110/f8fafc/94a3b8?text=${exec.fallback}`; }}
+                  />
                   <span style={{ position: 'absolute', bottom: -8, right: -6, background: exec.accent, color: '#fff', fontSize: 9, fontWeight: 800, padding: '3px 9px', borderRadius: 100, letterSpacing: '0.08em' }}>{exec.role}</span>
                 </div>
                 <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1e293b', marginBottom: 4 }}>{exec.name}</h3>
