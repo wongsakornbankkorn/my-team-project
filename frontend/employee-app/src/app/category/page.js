@@ -99,12 +99,39 @@ return (
           </Link>
         )}
         
-        {/* 📊 ปุ่มสลับดูรายงาน */}
-        <button 
+       
+   <button 
           onClick={handleToggleReport}
-          style={{ padding: '10px 15px', backgroundColor: showReport ? '#607d8b' : '#ff9800', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}
+          style={{ 
+            padding: '10px 15px', 
+            backgroundColor: showReport ? '#607d8b' : '#ff9800', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px', 
+            cursor: 'pointer', 
+            fontWeight: 'bold',
+            display: 'flex', // จัดให้อยู่บรรทัดเดียวกัน
+            alignItems: 'center', // ให้อยู่กึ่งกลางแนวตั้ง
+            gap: '8px' // เว้นระยะห่างไอคอนกับข้อความ
+          }}
         >
-          {showReport ? '📋 กลับไปตารางจัดการ' : '📊 ดูรายงานสรุปยอด'}
+          {showReport ? (
+            <>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pass" viewBox="0 0 16 16">
+                <path d="M5.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z"/>
+                <path d="M8 2a2 2 0 0 0 2-2h2.5A1.5 1.5 0 0 1 14 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-13A1.5 1.5 0 0 1 3.5 0H6a2 2 0 0 0 2 2m0 1a3 3 0 0 1-2.83-2H3.5a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5h-1.67A3 3 0 0 1 8 3"/>
+              </svg>
+              กลับไปหน้าจัดการตาราง
+            </>
+          ) : (
+            <>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pass" viewBox="0 0 16 16">
+                <path d="M5.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z"/>
+                <path d="M8 2a2 2 0 0 0 2-2h2.5A1.5 1.5 0 0 1 14 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-13A1.5 1.5 0 0 1 3.5 0H6a2 2 0 0 0 2 2m0 1a3 3 0 0 1-2.83-2H3.5a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5h-1.67A3 3 0 0 1 8 3"/>
+              </svg>
+              ดูรายงานสรุปยอด
+            </>
+          )}
         </button>
       </div>
 
@@ -145,14 +172,16 @@ return (
       ) : (
         // ================= ตารางรายงาน =================
         <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ color: '#333', marginTop: 0 }}>📈 สรุปยอดแจ้งหาย/เจอ แยกตามประเภทการแจ้ง</h3>
+          <h3 style={{ color: '#333', marginTop: 0 }}> <> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-graph-up" viewBox="0 0 16 16">
+   <path fillRule="evenodd"  d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
+  </svg> สรุปยอดแจ้งหาย/เจอ แยกตามประเภทการแจ้ง</> </h3>
           <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', marginTop: '15px' }}>
             <thead>
               <tr style={{ backgroundColor: '#fff3e0' }}>
                 <th style={{ padding: '12px' }}>ประเภทการแจ้ง</th>
-                <th style={{ padding: '12px', color: '#e53935' }}>🔴 แจ้งหาย (ชิ้น)</th>
-                <th style={{ padding: '12px', color: '#43a047' }}>🟢 แจ้งเจอ (ชิ้น)</th>
-                <th style={{ padding: '12px', color: '#1e88e5' }}>🎉 คืนเจ้าของ (ชิ้น)</th>
+                <th > <i className="bi bi-circle-fill text-danger"></i> แจ้งหาย (ชิ้น)</th>
+                <th > <i className="bi bi-circle-fill text-success"></i> แจ้งเจอ (ชิ้น)</th>
+                <th>  <i className="bi bi-stars text-primary"> </i> คืนเจ้าของ (ชิ้น)</th>
                 <th style={{ padding: '12px', backgroundColor: '#ffe0b2' }}>รวมทั้งหมด (ชิ้น)</th>
               </tr>
             </thead>
