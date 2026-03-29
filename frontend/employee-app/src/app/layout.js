@@ -161,9 +161,9 @@ export default function RootLayout({ children }) {
                 <h4 style={{ fontSize: 12, fontWeight: 700, color: '#e2e8f0', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 18 }}>ติดต่อเรา</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {[
-                    { icon: '', label: 'ที่ตั้ง', value: 'ในใจเสมอมา' },
-                    { icon: '', label: 'โทรศัพท์', value: '001-888888 ต่อ 1234' },
-                    { icon: '', label: 'เวลาทำการ', value: 'ไม่มีกำหนด' },
+                    { icon: '', label: 'ที่ตั้ง', value: 'มหาวิทยาลัยสงขลานครินทร์' },
+                    { icon: '', label: 'โทรศัพท์', value: '000-888888 ต่อ 1234' },
+                    { icon: '', label: 'เวลาทำการ', value: '24 ชั่วโมง' },
                   ].map(({ icon, label, value }) => (
                     <div key={label} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                       <span style={{ fontSize: 14, marginTop: 2 }}>{icon}</span>
