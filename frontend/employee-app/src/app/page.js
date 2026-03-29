@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import itemService from '../services/itemService';
+import locationService from '../services/locationService'; //  1. เพิ่มการเรียกใช้ locationService
 
 const execs = [
   { name: 'คุณแบงค์', title: 'Chief Executive Officer', subtitle: 'ผู้ก่อตั้ง · ดูแลระบบหมวดหมู่', src: '/bank-profile.jpg', fallback: 'CEO', accent: '#f59e0b', role: 'CEO' },
@@ -46,28 +47,36 @@ const adminItems = [
   },
 ];
 
-// ✅ Modal แสดงแค่รูปภาพ (ตัดส่วน "สถานที่: ID X" ออกแล้ว)
-const Modal = ({ item, onClose }) => (
-  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={onClose}>
-    <div style={{ background: '#fff', borderRadius: 20, padding: 32, maxWidth: 420, width: '90%', position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
-      <button onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: '#f1f5f9', border: 'none', color: '#64748b', width: 30, height: 30, borderRadius: '50%', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
-      <h3 style={{ color: '#1e293b', marginBottom: 16, fontSize: 18, fontWeight: 700 }}>{item.notice_title}</h3>
-      {item.image_url ? (
-        <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 12, marginBottom: 16, objectFit: 'cover', maxHeight: 220 }} />
-      ) : (
-        <div style={{ background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 12, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', marginBottom: 16 }}>
-          <span style={{ fontSize: 13 }}>ไม่มีรูปภาพ</span>
-        </div>
-      )}
-      {item.description && (
+// ✅ Modal แบบแสดงรายละเอียดครบถ้วน
+const Modal = ({ item, onClose }) => {
+  // ดึงรายละเอียดมาโชว์ (ดักเผื่อหลังบ้านใช้ชื่อตัวแปรหลายแบบ)
+  const detailText = item.description || item.notice_detail || item.detail || "ไม่มีรายละเอียดเพิ่มเติม";
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={onClose}>
+      <div style={{ background: '#fff', borderRadius: 20, padding: 32, maxWidth: 420, width: '90%', position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: '#f1f5f9', border: 'none', color: '#64748b', width: 30, height: 30, borderRadius: '50%', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+        
+        <h3 style={{ color: '#1e293b', marginBottom: 16, fontSize: 18, fontWeight: 700 }}>{item.notice_title}</h3>
+        
+        {item.image_url ? (
+          <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 12, marginBottom: 16, objectFit: 'cover', maxHeight: 220 }} />
+        ) : (
+          <div style={{ background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 12, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', marginBottom: 16 }}>
+            <span style={{ fontSize: 13 }}>ไม่มีรูปภาพ</span>
+          </div>
+        )}
+
+        {/* 👇 ส่วนแสดงรายละเอียดที่แก้ใหม่ โชว์แน่นอน 100% */}
         <div style={{ background: '#f8fafc', borderRadius: 10, padding: '12px 14px', marginTop: 4 }}>
-          <p style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', marginBottom: 4 }}>รายละเอียด</p>
-          <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>{item.description}</p>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', marginBottom: 4 }}>📝 รายละเอียดเพิ่มเติม</p>
+          <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>{detailText}</p>
         </div>
-      )}
+
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -75,6 +84,7 @@ export default function HomePage() {
   const [username, setUsername] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [items, setItems] = useState([]);
+  const [locations, setLocations] = useState([]); //  2. เพิ่ม State สำหรับเก็บรายการสถานที่
   const [loadingItems, setLoadingItems] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -89,11 +99,24 @@ export default function HomePage() {
     try {
       const data = await itemService.getAllItems();
       setItems(data.reverse().slice(0, 10));
+
+      //  ดึงข้อมูลสถานที่ทั้งหมดมาเตรียมไว้
+      const locData = await locationService.getLocations();
+      setLocations(locData?.data || locData || []);
+
     } catch (error) {
-      console.error('Error fetching items:', error);
+      console.error('Error fetching items or locations:', error);
     } finally {
       setLoadingItems(false);
     }
+  };
+
+  //  3. ฟังก์ชันสำหรับหา "ชื่อสถานที่" จาก "รหัสสถานที่ (place_id)"
+  const getLocationName = (placeId) => {
+    if (!placeId) return 'ไม่ระบุสถานที่';
+    // ค้นหาในรายการสถานที่ว่า id ตรงกับ placeId หรือไม่
+    const loc = locations.find(l => Number(l.id) === Number(placeId));
+    return loc ? loc.name : `กำลังโหลด...`; // ถ้าเจอให้คืนชื่อ ถ้าไม่เจอชั่วคราวให้ขึ้นว่ากำลังโหลด
   };
 
   const getStatusBadge = (statusId) => {
@@ -259,8 +282,7 @@ export default function HomePage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ background: '#f8fafc' }}>
-                      {/* ✅ เพิ่มคอลัมน์ "สถานที่" */}
-                      {['หัวข้อรายการ', 'สถานะ', 'สถานที่', 'รูปภาพสิ่งของ / รายละเอียด '].map((h, i) => (
+                      {['หัวข้อรายการ', 'สถานะ', 'สถานที่', 'รูปภาพสิ่งของ / รายละเอียด'].map((h, i) => (
                         <th key={h} style={{ padding: '12px 20px', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: i === 3 ? 'center' : 'left', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>{h}</th>
                       ))}
                     </tr>
@@ -273,19 +295,21 @@ export default function HomePage() {
                       >
                         <td style={{ padding: '16px 20px', fontSize: 14, fontWeight: 600, color: '#1e293b' }}>{item.notice_title}</td>
                         <td style={{ padding: '16px 20px' }}>{getStatusBadge(item.notice_status_id)}</td>
-                        {/* ✅ แสดงชื่อสถานที่จริงจาก place_name */}
+                        
+                        {/*  4. เปลี่ยนมาดึงฟังก์ชัน getLocationName(รหัส) แทน */}
                         <td style={{ padding: '16px 20px', fontSize: 13, color: '#475569' }}>
-                          {item.place_name ? (
+                          {item.place_id ? (
                             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                               <svg width="13" height="13" viewBox="0 0 16 16" fill="#6366f1" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                               </svg>
-                              {item.place_name}
+                              {getLocationName(item.place_id)}
                             </span>
                           ) : (
                             <span style={{ color: '#94a3b8' }}>—</span>
                           )}
                         </td>
+
                         <td style={{ padding: '16px 20px', textAlign: 'center' }}>
                           <button
                             onClick={() => setSelectedItem(item)}

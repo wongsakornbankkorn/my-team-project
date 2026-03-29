@@ -206,7 +206,7 @@ export default function CategoryList() {
         </div>
       )}
         
-      {/* 🐈 Lottie น้องแมวส้มด้านบน */}
+      
       <div style={{
         position: 'fixed',
         top: '60px',
@@ -223,7 +223,7 @@ export default function CategoryList() {
         />
       </div>
 
-      {/* 🐈 Lottie น้องแมวส้มเดินด้านล่าง */}
+      
       <div style={{
         position: 'fixed',
         bottom: '0px',
