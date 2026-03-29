@@ -1,9 +1,15 @@
-"use client"; // บังคับให้เป็น Client Component
 
+'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import axios from 'axios'; // 💡 อย่าลืม import axios
+import axios from 'axios';
 import categoryService from '../../services/categoryService';
+import dynamic from 'next/dynamic';
+
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(mod => mod.Player),
+  { ssr: false }
+);
 
 export default function CategoryList() {
   const [categories, setCategories] = useState([]);
@@ -79,6 +85,7 @@ export default function CategoryList() {
   if (loading) return <div style={{ padding: '20px' }}>กำลังโหลดข้อมูล...</div>;
 
 return (
+      
     <div style={{ padding: '30px', fontFamily: 'sans-serif', maxWidth: '1000px', margin: '0 auto' }}>
       
       
@@ -199,6 +206,52 @@ return (
           </table>
         </div>
       )}
+        
+
+<div style={{
+  position: 'fixed',
+  top: '60px',
+  right: '200px',
+  zIndex: 9999,
+  pointerEvents: 'none',
+  width: '120px'
+}}>
+  <Player
+    autoplay
+    loop
+    src="/animations/cat.json"
+    style={{ width: '120px', height: '120px' }}
+  />
+</div>
+<div style={{
+  position: 'fixed',
+  bottom: '0px',
+  left: '0',
+  animation: 'walk 30s linear infinite',
+  zIndex: 9999,
+  pointerEvents: 'none',
+  width: '80px'
+}}>
+  <Player
+    autoplay
+    loop
+    src="/animations/Orange.json"
+    style={{ width: '80px', height: '80px' }}
+  />
+</div>
+
+<style>{`
+  @keyframes walk {
+    0%   { transform: translateX(-100px) scaleX(1); opacity: 0; }
+    5%   { opacity: 1; }
+    45%  { transform: translateX(110vw) scaleX(1); opacity: 1; }
+    50%  { transform: translateX(110vw) scaleX(-1); opacity: 0; }
+    55%  { transform: translateX(110vw) scaleX(-1); opacity: 1; }
+    95%  { transform: translateX(-100px) scaleX(-1); opacity: 1; }
+    100% { transform: translateX(-100px) scaleX(1); opacity: 0; }
+  }
+`}</style>
+       
     </div>
   );
 }
