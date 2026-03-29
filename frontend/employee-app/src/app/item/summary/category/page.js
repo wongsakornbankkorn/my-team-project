@@ -27,9 +27,9 @@ export default function CategoryReport() {
 
   const filterTabs = [
     { key: 'all',      label: 'ทั้งหมด',       color: '#6366f1' },
-    { key: 'lost',     label: '🚨 แจ้งหาย',    color: '#ef4444' },
-    { key: 'found',    label: '✅ แจ้งเจอ',    color: '#f97316' },
-    { key: 'returned', label: '🎉 คืนของแล้ว', color: '#22c55e' },
+    { key: 'lost',     label: 'แจ้งหาย',    color: '#ef4444' },
+    { key: 'found',    label: 'แจ้งเจอ',    color: '#f97316' },
+    { key: 'returned', label: 'คืนของแล้ว', color: '#22c55e' },
   ];
 
   if (loading) return (
@@ -41,7 +41,7 @@ export default function CategoryReport() {
 
   if (error) return (
     <div style={s.center}>
-      <p style={{ color: '#ef4444' }}>⚠️ {error}</p>
+      <p style={{ color: '#ef4444' }}> {error}</p>
       <Link href="/item/summary"><button style={s.btnGray}>← กลับ</button></Link>
     </div>
   );
@@ -53,11 +53,11 @@ export default function CategoryReport() {
       <div style={s.header}>
         <div>
           <p style={s.breadcrumb}>รายงาน / แยกตามประเภท</p>
-          <h1 style={s.title}>📂 รายงานแยกตามประเภทการแจ้ง</h1>
+          <h1 style={s.title}>รายงานแยกตามประเภทการแจ้ง</h1>
           <p style={s.subtitle}>สรุปจำนวนการแจ้งหายและแจ้งเจอ แบ่งตามหมวดหมู่สิ่งของ</p>
         </div>
         <div style={s.headerBtns}>
-          <button onClick={() => window.print()} style={s.btnDark}>🖨️ พิมพ์</button>
+          <button onClick={() => window.print()} style={s.btnDark}>พิมพ์</button>
           <Link href="/item/summary"><button style={s.btnGray}>← รายงานรายเดือน</button></Link>
           <Link href="/item"><button style={s.btnGray}>← กลับ</button></Link>
         </div>
@@ -66,10 +66,10 @@ export default function CategoryReport() {
       {/* Summary Cards */}
       <div style={s.cardRow}>
         {[
-          { label: 'รายการทั้งหมด', value: grandTotal,    color: '#6366f1', icon: '📋' },
-          { label: 'แจ้งหาย',       value: grandLost,     color: '#ef4444', icon: '🚨' },
-          { label: 'แจ้งเจอ',       value: grandFound,    color: '#f97316', icon: '✅' },
-          { label: 'คืนของแล้ว',    value: grandReturned, color: '#22c55e', icon: '🎉' },
+          { label: 'รายการทั้งหมด', value: grandTotal,    color: '#6366f1', icon: '' },
+          { label: 'แจ้งหาย',       value: grandLost,     color: '#ef4444', icon: '' },
+          { label: 'แจ้งเจอ',       value: grandFound,    color: '#f97316', icon: '' },
+          { label: 'คืนของแล้ว',    value: grandReturned, color: '#22c55e', icon: '' },
         ].map(c => (
           <div key={c.label} style={{ ...s.card, borderTop: `4px solid ${c.color}` }}>
             <span style={{ fontSize: 28 }}>{c.icon}</span>
@@ -82,7 +82,7 @@ export default function CategoryReport() {
       {/* Bar Chart */}
       <div style={s.section}>
         <div style={s.sectionHeader}>
-          <h2 style={s.sectionTitle}>📊 กราฟแสดงจำนวนตามประเภท</h2>
+          <h2 style={s.sectionTitle}>กราฟแสดงจำนวนตามประเภท</h2>
           <div style={s.tabs}>
             {filterTabs.map(t => (
               <button
@@ -123,16 +123,16 @@ export default function CategoryReport() {
 
       {/* Table */}
       <div style={s.section}>
-        <h2 style={s.sectionTitle}>📋 ตารางสรุปรายละเอียด</h2>
+        <h2 style={s.sectionTitle}>ตารางสรุปรายละเอียด</h2>
         <div style={{ overflowX: 'auto' }}>
           <table style={s.table}>
             <thead>
               <tr style={s.thead}>
                 <th style={s.th}>#</th>
                 <th style={{ ...s.th, textAlign: 'left' }}>ประเภท / หมวดหมู่</th>
-                <th style={{ ...s.th, color: '#ef4444' }}>🚨 แจ้งหาย</th>
-                <th style={{ ...s.th, color: '#f97316' }}>✅ แจ้งเจอ</th>
-                <th style={{ ...s.th, color: '#22c55e' }}>🎉 คืนของแล้ว</th>
+                <th style={{ ...s.th, color: '#ef4444' }}>แจ้งหาย</th>
+                <th style={{ ...s.th, color: '#f97316' }}>แจ้งเจอ</th>
+                <th style={{ ...s.th, color: '#22c55e' }}>คืนของแล้ว</th>
                 <th style={{ ...s.th, color: '#6366f1' }}>รวม</th>
                 <th style={s.th}>สัดส่วน</th>
               </tr>
@@ -141,7 +141,7 @@ export default function CategoryReport() {
               {data.length === 0 ? (
                 <tr>
                   <td colSpan="7" style={{ ...s.td, textAlign: 'center', color: '#94a3b8', padding: 32 }}>
-                    ยังไม่มีข้อมูล
+                   ยังไม่มีข้อมูล
                   </td>
                 </tr>
               ) : data.map((row, i) => {

@@ -8,6 +8,13 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+
+const Item = require('./models/Item')
+const Location = require('./models/Location')
+
+Item.belongsTo(Location, { foreignKey: 'place_id', as: 'location' })
+Location.hasMany(Item,   { foreignKey: 'place_id', as: 'items' })
+
 app.use('/api/items',      require('./routes/itemRoutes'))
 app.use('/api/categories', require('./routes/categoryRoutes'))
 app.use('/api/users',      require('./routes/userRoutes'))
@@ -21,15 +28,11 @@ sequelize.sync({ alter: true })
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
-
 })
 
 app.get('/', (req, res) => {
   res.send('Server is running')
-  
 })
 
 const path = require('path')
-
-// เพิ่มหลัง app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))

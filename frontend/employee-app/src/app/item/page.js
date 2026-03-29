@@ -36,9 +36,9 @@ export default function ItemList() {
   };
 
   const getStatusLabel = (statusId) => {
-    if (statusId == 1) return <span style={{ color: 'red' }}>🚨 กำลังตามหา</span>;
-    if (statusId == 2) return <span style={{ color: 'orange' }}>✅ พบของแล้ว</span>;
-    if (statusId == 3) return <span style={{ color: 'green' }}>🎉 คืนเจ้าของแล้ว</span>;
+    if (statusId == 1) return <span style={{ color: 'red' }}>กำลังตามหา</span>;
+    if (statusId == 2) return <span style={{ color: 'orange' }}>พบของแล้ว</span>;
+    if (statusId == 3) return <span style={{ color: 'green' }}>คืนเจ้าของแล้ว</span>;
     return 'ไม่ทราบสถานะ';
   };
 
@@ -47,7 +47,7 @@ export default function ItemList() {
 
   return (
     <div>
-      <h2>📦 การจัดการสถานะ (ถั่วพู)</h2>
+      <h2>การจัดการสถานะ (ถั่วพู)</h2>
 
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', backgroundColor: 'white' }}>
         <thead>
@@ -76,9 +76,9 @@ export default function ItemList() {
                       onChange={e => setNewStatus(e.target.value)}
                       style={{ padding: '5px' }}
                     >
-                      <option value={1}>🚨 กำลังตามหา</option>
-                      <option value={2}>✅ พบของแล้ว</option>
-                      <option value={3}>🎉 คืนเจ้าของแล้ว</option>
+                      <option value={1}> กำลังตามหา</option>
+                      <option value={2}>พบของแล้ว</option>
+                      <option value={3}>คืนเจ้าของแล้ว</option>
                     </select>
                     <button onClick={() => handleUpdateStatus(item.notice_id)} style={{...btn, backgroundColor: '#4CAF50'}}>บันทึก</button>
                     <button onClick={() => setEditId(null)} style={{...btn, backgroundColor: '#9e9e9e'}}>ยกเลิก</button>
@@ -88,7 +88,7 @@ export default function ItemList() {
                     onClick={() => { setEditId(item.notice_id); setNewStatus(item.notice_status_id); }}
                     style={{...btn, backgroundColor: '#2196F3'}}
                   >
-                    เปลี่ยนสถานะ
+                   เปลี่ยนสถานะ
                   </button>
                 )}
               </td>

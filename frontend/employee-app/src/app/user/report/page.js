@@ -41,7 +41,7 @@ export default function UserReport() {
 
   return (
     <div style={{ padding: '30px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-      <h2>📈 รายงานยอดสมัครสมาชิกรายเดือน (ปั้น)</h2>
+      <h2>รายงานยอดสมัครสมาชิกรายเดือน (ปั้น)</h2>
       
       <table border="1" style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', textAlign: 'center' }}>
         <thead>
@@ -65,7 +65,7 @@ export default function UserReport() {
           )}
         </tbody>
       </table>
-      <button onClick={() => window.print()} style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#333', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>🖨️ พิมพ์รายงาน</button>
+      <button onClick={() => window.print()} style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#333', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>พิมพ์รายงาน</button>
     </div>
   );
 }

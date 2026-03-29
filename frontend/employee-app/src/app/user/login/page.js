@@ -72,7 +72,7 @@ export default function Login() {
 
           {errorMsg && (
             <div style={styles.errorBox}>
-              <span style={{ marginRight: '8px' }}>⚠️</span>
+              <span style={{ marginRight: '8px' }}></span>
               {errorMsg}
             </div>
           )}
@@ -128,7 +128,7 @@ export default function Login() {
                   onClick={() => setShowPassword(!showPassword)}
                   style={styles.eyeBtn}
                 >
-                  {showPassword ? '🙈' : '👁️'}
+                  {showPassword ? '' : ''}
                 </button>
               </div>
             </div>
@@ -138,14 +138,14 @@ export default function Login() {
               disabled={isLoading}
               style={isLoading ? styles.btnDisabled : styles.btn}
             >
-              {isLoading ? '⏳  กำลังตรวจสอบข้อมูล...' : 'เข้าสู่ระบบ'}
+              {isLoading ? 'กำลังตรวจสอบข้อมูล...' : 'เข้าสู่ระบบ'}
             </button>
           </form>
 
           <div style={styles.footer}>
-            ยังไม่มีบัญชีผู้ใช้?{' '}
+           ยังไม่มีบัญชีผู้ใช้?{' '}
             <span style={styles.link} onClick={() => router.push('/user/register')}>
-              สมัครสมาชิกเลย
+             สมัครสมาชิกเลย
             </span>
           </div>
         </div>

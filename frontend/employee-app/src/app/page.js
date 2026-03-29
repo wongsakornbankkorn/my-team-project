@@ -11,41 +11,42 @@ const execs = [
 ];
 
 const adminItems = [
-  { 
+  {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-megaphone" viewBox="0 0 16 16">
-        <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 75 75 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0m-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233q.27.015.537.036c2.568.189 5.093.744 7.463 1.993zm-9 6.215v-4.13a95 95 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A61 61 0 0 1 4 10.065m-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68 68 0 0 0-1.722-.082z"/>
-      </svg>
-    ), 
-    label: 'แจ้งหาย / เจอ', desc: 'จัดการรายการของหายทั้งหมด', path: '/item', accent: '#ef4444', bg: '#fef2f2', border: '#fecaca' 
-  },
-  { 
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-boxes" viewBox="0 0 16 16">
-        <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
-      </svg>
-    ), 
-    label: 'หมวดหมู่', desc: 'จัดการประเภทของสิ่งของ', path: '/category', accent: '#f59e0b', bg: '#fffbeb', border: '#fde68a' 
-  },
-  { 
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 75 75 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0m-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233q.27.015.537.036c2.568.189 5.093.744 7.463 1.993zm-9 6.215v-4.13a95 95 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A61 61 0 0 1 4 10.065m-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68 68 0 0 0-1.722-.082z" />
       </svg>
     ),
-    label: 'สถานที่', desc: 'จัดการตำแหน่งและอาคาร', path: '/location', accent: '#22c55e', bg: '#f0fdf4', border: '#bbf7d0' 
+    label: 'แจ้งหาย / เจอ', desc: 'จัดการรายการของหายทั้งหมด', path: '/item', accent: '#ef4444', bg: '#fef2f2', border: '#fecaca'
   },
-  { 
+  {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-        <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-      </svg> 
-    ), 
-    label: 'ผู้ใช้งาน', desc: 'จัดการสมาชิกในระบบ', path: '/user', accent: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe' 
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+      </svg>
+    ),
+    label: 'หมวดหมู่', desc: 'จัดการประเภทของสิ่งของ', path: '/category', accent: '#f59e0b', bg: '#fffbeb', border: '#fde68a'
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+      </svg>
+    ),
+    label: 'สถานที่', desc: 'จัดการตำแหน่งและอาคาร', path: '/location', accent: '#22c55e', bg: '#f0fdf4', border: '#bbf7d0'
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+        <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+      </svg>
+    ),
+    label: 'ผู้ใช้งาน', desc: 'จัดการสมาชิกในระบบ', path: '/user', accent: '#3b82f6', bg: '#eff6ff', border: '#bfdbfe'
   },
 ];
 
+// ✅ Modal แสดงแค่รูปภาพ (ตัดส่วน "สถานที่: ID X" ออกแล้ว)
 const Modal = ({ item, onClose }) => (
   <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={onClose}>
     <div style={{ background: '#fff', borderRadius: 20, padding: 32, maxWidth: 420, width: '90%', position: 'relative', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
@@ -54,13 +55,16 @@ const Modal = ({ item, onClose }) => (
       {item.image_url ? (
         <img src={`http://localhost:5000${item.image_url}`} alt="รูปของหาย" style={{ width: '100%', borderRadius: 12, marginBottom: 16, objectFit: 'cover', maxHeight: 220 }} />
       ) : (
-        <div style={{ background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 12, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', marginBottom: 16, flexDirection: 'column', gap: 6 }}>
+        <div style={{ background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 12, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', marginBottom: 16 }}>
           <span style={{ fontSize: 13 }}>ไม่มีรูปภาพ</span>
         </div>
       )}
-      <p style={{ color: '#64748b', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
-        สถานที่: <span style={{ color: '#1e293b', fontWeight: 500 }}>ID {item.place_id}</span>
-      </p>
+      {item.description && (
+        <div style={{ background: '#f8fafc', borderRadius: 10, padding: '12px 14px', marginTop: 4 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', marginBottom: 4 }}>รายละเอียด</p>
+          <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>{item.description}</p>
+        </div>
+      )}
     </div>
   </div>
 );
@@ -84,7 +88,7 @@ export default function HomePage() {
   const fetchRecentItems = async () => {
     try {
       const data = await itemService.getAllItems();
-      setItems(data.slice(0, 10));
+      setItems(data.reverse().slice(0, 10));
     } catch (error) {
       console.error('Error fetching items:', error);
     } finally {
@@ -112,13 +116,7 @@ export default function HomePage() {
       {selectedItem && <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />}
 
       {/* ── HERO ── */}
-      <section style={{
-        background: 'linear-gradient(135deg, #1e293b 0%, #1e40af 50%, #0369a1 100%)',
-        padding: '80px 24px 100px',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <section style={{ background: 'linear-gradient(135deg, #1e293b 0%, #1e40af 50%, #0369a1 100%)', padding: '80px 24px 100px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
 
@@ -194,7 +192,6 @@ export default function HomePage() {
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
                   <div style={{ width: 46, height: 46, borderRadius: 12, background: '#fff', border: `1.5px solid ${item.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.accent }}>
-                    {/* 👇 แก้ให้แสดงผล SVG ตามที่เราแก้กันไปครับ */}
                     {item.icon}
                   </div>
                   <div>
@@ -262,8 +259,9 @@ export default function HomePage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ background: '#f8fafc' }}>
-                      {['หัวข้อรายการ', 'สถานะ', 'รูปภาพสิ่งของ'].map((h, i) => (
-                        <th key={h} style={{ padding: '12px 20px', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: i === 2 ? 'center' : 'left', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>{h}</th>
+                      {/* ✅ เพิ่มคอลัมน์ "สถานที่" */}
+                      {['หัวข้อรายการ', 'สถานะ', 'สถานที่', 'รูปภาพสิ่งของ / รายละเอียด '].map((h, i) => (
+                        <th key={h} style={{ padding: '12px 20px', fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: i === 3 ? 'center' : 'left', borderBottom: '1px solid #e2e8f0', whiteSpace: 'nowrap' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -275,6 +273,19 @@ export default function HomePage() {
                       >
                         <td style={{ padding: '16px 20px', fontSize: 14, fontWeight: 600, color: '#1e293b' }}>{item.notice_title}</td>
                         <td style={{ padding: '16px 20px' }}>{getStatusBadge(item.notice_status_id)}</td>
+                        {/* ✅ แสดงชื่อสถานที่จริงจาก place_name */}
+                        <td style={{ padding: '16px 20px', fontSize: 13, color: '#475569' }}>
+                          {item.place_name ? (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                              <svg width="13" height="13" viewBox="0 0 16 16" fill="#6366f1" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                              </svg>
+                              {item.place_name}
+                            </span>
+                          ) : (
+                            <span style={{ color: '#94a3b8' }}>—</span>
+                          )}
+                        </td>
                         <td style={{ padding: '16px 20px', textAlign: 'center' }}>
                           <button
                             onClick={() => setSelectedItem(item)}

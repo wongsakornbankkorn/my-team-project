@@ -15,7 +15,7 @@ export default function CategoryForm() {
   });
 
   useEffect(() => {
-    // ถ้ามี ID แปลว่าเป็นการ "แก้ไข" ให้ดึงข้อมูลเก่ามาแสดง
+    // ถ้ามี ID แปลว่าเป็นการ "แก้ไข"ให้ดึงข้อมูลเก่ามาแสดง
     if (id) {
       const fetchCategory = async () => {
         try {
@@ -57,7 +57,7 @@ export default function CategoryForm() {
 
   return (
     <div style={{ padding: '30px', fontFamily: 'sans-serif', maxWidth: '500px' }}>
-      <h2>{id ? '✏️ แก้ไขหมวดหมู่' : 'เพิ่มหมวดหมู่ใหม่'}</h2>
+      <h2>{id ? 'แก้ไขหมวดหมู่' : 'เพิ่มหมวดหมู่ใหม่'}</h2>
       
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <div>
@@ -88,7 +88,7 @@ export default function CategoryForm() {
         </button>
         
         <button type="button" onClick={() => router.push('/category')} style={{ padding: '10px', backgroundColor: '#f44336', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
-          ยกเลิก
+         ยกเลิก
         </button>
       </form>
     </div>

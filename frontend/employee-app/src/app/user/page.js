@@ -66,13 +66,13 @@ export default function UserList() {
         payload.password = editForm.password;
       }
       await userService.updateUser(editUser.id || editUser.user_id, payload);
-      setSuccessMsg('✅ บันทึกสำเร็จ!');
+      setSuccessMsg('บันทึกสำเร็จ!');
       fetchUsers();
       setTimeout(() => {
         handleCloseModal();
       }, 1000);
     } catch (error) {
-      setErrorMsg('❌ เกิดข้อผิดพลาด กรุณาลองใหม่');
+      setErrorMsg('เกิดข้อผิดพลาด กรุณาลองใหม่');
     } finally {
       setSaving(false);
     }
@@ -95,7 +95,7 @@ export default function UserList() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif', backgroundColor: 'white', borderRadius: '8px' }}>
-      <h2> จัดการข้อมูลผู้ใช้ (User Management)</h2>
+      <h2>จัดการข้อมูลผู้ใช้ (User Management)</h2>
 
       <div style={{ marginBottom: '15px' }}>
         <Link href="/user/register">
@@ -132,13 +132,13 @@ export default function UserList() {
                     onClick={() => handleOpenEdit(user)}
                     style={{ marginRight: '10px', backgroundColor: '#2196F3', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '3px', cursor: 'pointer' }}
                   >
-                    แก้ไข
+                   แก้ไข
                   </button>
                   <button
                     onClick={() => handleDelete(user.id || user.user_id)}
                     style={{ backgroundColor: '#f44336', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '3px', cursor: 'pointer' }}
                   >
-                    ลบ
+                   ลบ
                   </button>
                 </td>
               </tr>
@@ -158,8 +158,8 @@ export default function UserList() {
 
             {/* Header */}
             <div style={modal.header}>
-              <h3 style={modal.title}>✏️ แก้ไขข้อมูลผู้ใช้</h3>
-              <button onClick={handleCloseModal} style={modal.closeBtn}>✕</button>
+              <h3 style={modal.title}>แก้ไขข้อมูลผู้ใช้</h3>
+              <button onClick={handleCloseModal} style={modal.closeBtn}></button>
             </div>
 
             {/* User Badge */}
@@ -212,7 +212,7 @@ export default function UserList() {
                   onClick={() => setShowEditPassword(!showEditPassword)}
                   style={modal.eyeBtn}
                 >
-                  {showEditPassword ? '🙈' : '👁️'}
+                  {showEditPassword ? '' : ''}
                 </button>
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function UserList() {
             <div style={modal.footer}>
               <button onClick={handleCloseModal} style={modal.cancelBtn}>ยกเลิก</button>
               <button onClick={handleSaveEdit} disabled={saving} style={saving ? modal.saveBtnDisabled : modal.saveBtn}>
-                {saving ? '⏳ กำลังบันทึก...' : '💾 บันทึก'}
+                {saving ? 'กำลังบันทึก...' : 'บันทึก'}
               </button>
             </div>
 

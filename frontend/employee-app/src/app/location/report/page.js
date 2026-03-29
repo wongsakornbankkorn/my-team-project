@@ -29,11 +29,11 @@ export default function LocationReport() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h2>📊 รายงานแจ้งหาย/เจอ แยกตามสถานที่</h2>
+      <h2>รายงานแจ้งหาย/เจอ แยกตามสถานที่</h2>
 
       <Link href="/location">
         <button style={{ marginBottom: '15px', padding: '10px 15px', backgroundColor: '#607d8b', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-          ← กลับหน้าสถานที่
+         ← กลับหน้าสถานที่
         </button>
       </Link>
 
