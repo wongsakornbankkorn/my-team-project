@@ -38,23 +38,22 @@ export default function Login() {
   return (
     <div style={styles.page}>
 
-      {/* ====== ซ้าย: แผง Dark ====== */}
+      {/* ====== ซ้าย ====== */}
       <div style={styles.left}>
-        {/* วงแหวนตกแต่ง */}
         <div style={styles.ring1} />
         <div style={styles.ring2} />
         <div style={styles.ring3} />
 
         <div style={styles.leftContent}>
-          <div style={styles.logoBox}>🔍</div>
-          <h1 style={styles.leftTitle}>Lost &amp; Found<br />Admin Panel</h1>
-          <p style={styles.leftSub}>ระบบจัดการของหาย สำหรับเจ้าหน้าที่</p>
+          <h1 style={styles.leftTitle}>Lost &amp; Found</h1>
+          <p style={styles.leftSub}></p>
 
           <div style={styles.chips}>
             {[
-              'จัดการรายการของหาย / เจอ',
+              'ระบบเเจ้งเตือนของหาย',
               'ติดตามสถานะแบบ Real-time',
-              'รายงานสถิติรายเดือน',
+              'ขอบคุณที่ไว้ใจเรา',
+              
             ].map((text, i) => (
               <div key={i} style={styles.chip}>
                 <div style={styles.chipDot} />
@@ -65,13 +64,12 @@ export default function Login() {
         </div>
       </div>
 
-      {/* ====== ขวา: ฟอร์ม Login ====== */}
+      {/* ====== ขวา ====== */}
       <div style={styles.right}>
         <div style={styles.formCard}>
           <h2 style={styles.title}>เข้าสู่ระบบ</h2>
           <p style={styles.subtitle}>กรอกข้อมูลเพื่อเข้าใช้งานระบบ</p>
 
-          {/* Error Box */}
           {errorMsg && (
             <div style={styles.errorBox}>
               <span style={{ marginRight: '8px' }}>⚠️</span>
@@ -80,8 +78,6 @@ export default function Login() {
           )}
 
           <form onSubmit={handleSubmit} style={styles.form}>
-
-            {/* Username */}
             <div style={styles.inputGroup}>
               <label style={styles.label}>ชื่อผู้ใช้งาน</label>
               <input
@@ -105,7 +101,6 @@ export default function Login() {
               />
             </div>
 
-            {/* Password */}
             <div style={styles.inputGroup}>
               <label style={styles.label}>รหัสผ่าน</label>
               <div style={styles.passwordWrap}>
@@ -138,15 +133,13 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
               style={isLoading ? styles.btnDisabled : styles.btn}
             >
-              {isLoading ? '⏳  กำลังตรวจสอบข้อมูล...' : '🚀  เข้าสู่ระบบ'}
+              {isLoading ? '⏳  กำลังตรวจสอบข้อมูล...' : 'เข้าสู่ระบบ'}
             </button>
-
           </form>
 
           <div style={styles.footer}>
@@ -162,16 +155,18 @@ export default function Login() {
   );
 }
 
+const NAVBAR_HEIGHT = '64px'; // ← ปรับถ้า Navbar สูงไม่เท่ากัน
+
 const styles = {
   page: {
     display: 'flex',
-    minHeight: '100vh',
+    height: `calc(100vh - ${NAVBAR_HEIGHT})`,
     fontFamily: "'Prompt', 'Segoe UI', sans-serif",
+    overflow: 'hidden',
   },
-
-  /* ===== Left Panel ===== */
   left: {
     flex: 1,
+    height: '100%',
     background: 'linear-gradient(160deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)',
     display: 'flex',
     alignItems: 'center',
@@ -205,29 +200,20 @@ const styles = {
     position: 'relative',
     zIndex: 1,
   },
-  logoBox: {
-    width: '64px', height: '64px',
-    background: 'rgba(255,255,255,0.1)',
-    border: '1px solid rgba(255,255,255,0.2)',
-    borderRadius: '18px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '28px',
-    marginBottom: '24px',
-  },
   leftTitle: {
     color: '#ffffff',
-    fontSize: '28px',
-    fontWeight: '700',
-    lineHeight: '1.35',
+    fontSize: '48px',
+    fontWeight: '800',
+    lineHeight: '1.15',
     marginBottom: '12px',
+    letterSpacing: '-1px',
   },
   leftSub: {
     color: '#93c5fd',
-    fontSize: '14px',
+    fontSize: '15px',
     lineHeight: '1.6',
-    marginBottom: '32px',
+    marginBottom: '36px',
+    fontWeight: '300',
   },
   chips: {
     display: 'flex',
@@ -251,15 +237,15 @@ const styles = {
     background: '#60a5fa',
     flexShrink: 0,
   },
-
-  /* ===== Right Panel ===== */
   right: {
     width: '460px',
+    height: '100%',
     background: '#ffffff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '48px 40px',
+    overflowY: 'auto',
   },
   formCard: {
     width: '100%',
@@ -276,8 +262,6 @@ const styles = {
     color: '#94a3b8',
     marginBottom: '32px',
   },
-
-  /* Error */
   errorBox: {
     background: '#fef2f2',
     border: '1px solid #fecaca',
@@ -289,8 +273,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
   },
-
-  /* Form */
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -338,8 +320,6 @@ const styles = {
     lineHeight: 1,
     color: '#94a3b8',
   },
-
-  /* Buttons */
   btn: {
     width: '100%',
     padding: '14px',
@@ -354,7 +334,6 @@ const styles = {
     boxShadow: '0 6px 20px rgba(37,99,235,0.35)',
     letterSpacing: '0.3px',
     fontFamily: "'Prompt', 'Segoe UI', sans-serif",
-    transition: 'transform 0.15s, box-shadow 0.2s',
   },
   btnDisabled: {
     width: '100%',
@@ -370,8 +349,6 @@ const styles = {
     letterSpacing: '0.3px',
     fontFamily: "'Prompt', 'Segoe UI', sans-serif",
   },
-
-  /* Footer */
   footer: {
     marginTop: '28px',
     textAlign: 'center',

@@ -52,9 +52,9 @@ export default function Register() {
       <div style={styles.loginCard}>
         
         <div style={styles.headerSection}>
-          <div style={styles.iconWrapper}>📝</div>
+          <div style={styles.iconWrapper}></div>
           <h2 style={styles.title}>สร้างบัญชีใหม่</h2>
-          <p style={styles.subtitle}>เข้าร่วมเป็นสมาชิกกับระบบของเรา</p>
+          <p style={styles.subtitle}></p>
         </div>
 
         <form onSubmit={handleSubmit} style={styles.formStyle}>

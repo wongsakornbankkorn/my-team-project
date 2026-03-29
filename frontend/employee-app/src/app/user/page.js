@@ -95,7 +95,7 @@ export default function UserList() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif', backgroundColor: 'white', borderRadius: '8px' }}>
-      <h2>👥 จัดการข้อมูลผู้ใช้ (User Management)</h2>
+      <h2> จัดการข้อมูลผู้ใช้ (User Management)</h2>
 
       <div style={{ marginBottom: '15px' }}>
         <Link href="/user/register">
