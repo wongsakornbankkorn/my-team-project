@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
   const isLogin = pathname === '/user/login' || pathname === '/user/register';
 
   return (
-    <html lang="th">
+    <html lang="th" data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
