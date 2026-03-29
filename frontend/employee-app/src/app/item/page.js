@@ -76,7 +76,7 @@ export default function ItemList() {
                       onChange={e => setNewStatus(e.target.value)}
                       style={{ padding: '5px' }}
                     >
-                      <option value={1}>กำลังตามหา</option>
+                      <option value={1}> กำลังตามหา</option>
                       <option value={2}>พบของแล้ว</option>
                       <option value={3}>คืนเจ้าของแล้ว</option>
                     </select>
