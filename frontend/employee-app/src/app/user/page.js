@@ -8,7 +8,7 @@ export default function UserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // --- State สำหรับ Modal แก้ไข ---
+  //การเก็บสถานะ
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null); // เก็บ user ที่กำลังแก้ไข
   const [editForm, setEditForm] = useState({ username: '', password: '' });

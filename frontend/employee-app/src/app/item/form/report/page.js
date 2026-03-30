@@ -5,7 +5,7 @@ import itemService from '../../../services/itemService';
 
 export default function ItemReport() {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);  //ไว้เก็บข้อมูล
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -18,7 +18,7 @@ export default function ItemReport() {
         setLoading(false);
       }
     };
-    fetchItems();
+    fetchItems();   //ดึงข้อมุลไอเทม
   }, []);
 
   const statusLabel = (id) => {
@@ -28,7 +28,7 @@ export default function ItemReport() {
     return 'ไม่ทราบสถานะ';
   };
 
-  const countByStatus = (statusId) => items.filter(i => i.notice_status_id == statusId).length;
+  const countByStatus = (statusId) => items.filter(i => i.notice_status_id == statusId).length; //รับค่าว่าของมีประเภทละกี่่ชิ้น
 
   if (loading) return <div style={{ padding: '20px' }}>กำลังโหลดข้อมูล...</div>;
 

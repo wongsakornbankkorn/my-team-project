@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-export default function ReportUnified() {
+export default function ReportUnified() { //ทำให้ข้อมุลเป็นก้อนเดียว
   const router = useRouter();
   const [formData, setFormData] = useState({
     notice_title: '',
@@ -14,7 +14,7 @@ export default function ReportUnified() {
 
   });
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);  //สร้างตัวแปรรอข้อมูล
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [imageFile, setImageFile] = useState(null);
@@ -24,13 +24,13 @@ export default function ReportUnified() {
       try {
         const res = await axios.get('http://localhost:5000/api/categories');
 
-        //  เพิ่มเกราะป้องกันตรงนี้! เช็คให้ชัวร์ว่าเป็น Array ก่อนเอาไปใช้
+        //  เพิ่มตรงนี้ เช็คให้ชัวร์ว่าเป็น Array ก่อนเอาไปใช้
         if (Array.isArray(res.data)) {
           setCategories(res.data);
         } else if (res.data && Array.isArray(res.data.data)) {
           setCategories(res.data.data);
         } else {
-          setCategories([]); // ถ้าไม่ใช่เลย ก็ให้เป็นกรอบเปล่าๆ หน้าเว็บจะได้ไม่พัง
+          setCategories([]); // ถ้าไม่ ก็เป็นกรอบเปล่าๆ 
         }
 
       } catch (error) {
@@ -54,7 +54,7 @@ export default function ReportUnified() {
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //ไม่ฝห้หน้าเว็ปรี
     setIsLoading(true);
     try {
       const data = new FormData();
